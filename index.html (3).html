@@ -1,0 +1,2683 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prisma Corporative | Dashboard 360° & Asesoramiento CFO</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        blue: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            accent: '#c59b27'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-size: 16px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* DARK MODE OVERRIDES */
+        body.dark-mode {
+            background-color: #030712;
+            color: #f8fafc;
+        }
+
+        .dark-mode .bg-white {
+            background-color: #0b1329 !important;
+            color: #f8fafc !important;
+            border-color: #1e293b !important;
+        }
+        .dark-mode .bg-slate-50 {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
+            border-color: #1e293b !important;
+        }
+        .dark-mode .bg-slate-100 {
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+        }
+        .dark-mode .text-slate-900 {
+            color: #f8fafc !important;
+        }
+        .dark-mode .text-slate-700, .dark-mode .text-slate-600 {
+            color: #cbd5e1 !important;
+        }
+        .dark-mode .text-slate-500 {
+            color: #94a3b8 !important;
+        }
+        .dark-mode .border-slate-200, .dark-mode .border-slate-100 {
+            border-color: #1e293b !important;
+        }
+
+        .exec-shadow {
+            box-shadow: 0 4px 24px -2px rgba(15, 23, 42, 0.05), 0 2px 8px -1px rgba(15, 23, 42, 0.03);
+        }
+
+        .exec-shadow-lg {
+            box-shadow: 0 16px 40px -4px rgba(15, 23, 42, 0.08), 0 6px 16px -2px rgba(15, 23, 42, 0.04);
+        }
+
+        .tab-active {
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+            font-weight: 800;
+        }
+
+        .tab-inactive {
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+        }
+        .tab-inactive:hover {
+            color: #0f172a;
+            border-color: #cbd5e1;
+        }
+
+        .gold-nav-active {
+            color: #b45309 !important;
+            position: relative;
+            font-weight: 800 !important;
+        }
+        .gold-nav-active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background-color: #c59b27;
+            border-radius: 2px;
+        }
+
+        /* 3D ROTATING PRISM LOGO STYLING */
+        .prism-3d-mini {
+            width: 38px;
+            height: 38px;
+            perspective: 400px;
+            display: inline-block;
+        }
+        .prism-3d-hero {
+            width: 90px;
+            height: 90px;
+            perspective: 600px;
+            display: inline-block;
+        }
+        .prism-3d-chat {
+            width: 32px;
+            height: 32px;
+            perspective: 300px;
+            display: inline-block;
+        }
+
+        .prism-object {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spinPrism 10s infinite linear;
+        }
+        .prism-3d-mini:hover .prism-object,
+        .prism-3d-hero:hover .prism-object {
+            animation-duration: 3s;
+        }
+
+        @keyframes spinPrism {
+            0% { transform: rotateY(0deg) rotateX(15deg) rotateZ(0deg); }
+            100% { transform: rotateY(360deg) rotateX(15deg) rotateZ(0deg); }
+        }
+
+        /* Pyramid Facets Mini */
+        .facet-mini {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-bottom: 36px solid rgba(37, 99, 235, 0.85);
+            transform-origin: 18px 36px;
+            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6));
+        }
+        .fm-front { transform: translateY(0px) translateZ(10px) rotateX(25deg); border-bottom-color: rgba(56, 189, 248, 0.95); }
+        .fm-back  { transform: translateY(0px) translateZ(-10px) rotateX(-25deg) rotateY(180deg); border-bottom-color: rgba(29, 78, 216, 0.95); }
+        .fm-right { transform: translateY(0px) translateX(10px) rotateZ(25deg) rotateY(90deg); border-bottom-color: rgba(96, 165, 250, 0.85); }
+        .fm-left  { transform: translateY(0px) translateX(-10px) rotateZ(-25deg) rotateY(-90deg); border-bottom-color: rgba(30, 58, 138, 0.9); }
+
+        /* Pyramid Facets Hero */
+        .facet-hero {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 80px solid rgba(37, 99, 235, 0.85);
+            transform-origin: 40px 80px;
+            filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.7));
+        }
+        .fh-front { transform: translateY(0px) translateZ(24px) rotateX(25deg); border-bottom-color: rgba(56, 189, 248, 0.95); }
+        .fh-back  { transform: translateY(0px) translateZ(-24px) rotateX(-25deg) rotateY(180deg); border-bottom-color: rgba(29, 78, 216, 0.95); }
+        .fh-right { transform: translateY(0px) translateX(24px) rotateZ(25deg) rotateY(90deg); border-bottom-color: rgba(96, 165, 250, 0.85); }
+        .fh-left  { transform: translateY(0px) translateX(-24px) rotateZ(-25deg) rotateY(-90deg); border-bottom-color: rgba(30, 58, 138, 0.9); }
+
+        /* Typewriter Cursor animation */
+        .typewriter-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: #2563eb;
+            margin-left: 2px;
+            font-weight: 300;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* FLOATING 3D PRISMS CANVAS BACKGROUND FOR NIGHT MODE */
+        #prism-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        body.dark-mode #prism-bg-canvas {
+            opacity: 1;
+        }
+
+        /* Scientific Calculator Button Styling */
+        .calc-btn {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            padding: 0.75rem 0.5rem;
+            transition: all 0.15s ease;
+            user-select: none;
+            border: 1px solid #cbd5e1;
+        }
+        .dark-mode .calc-btn {
+            background-color: #1e293b;
+            color: #f8fafc;
+            border-color: #334155;
+        }
+        .calc-btn:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-1px);
+        }
+        .dark-mode .calc-btn:hover {
+            background-color: #334155;
+        }
+        .calc-btn:active {
+            transform: translateY(1px);
+        }
+        .calc-btn-op {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #1d4ed8;
+        }
+        .calc-btn-op:hover {
+            background-color: #1d4ed8;
+        }
+        .calc-btn-fn {
+            background-color: #0f172a;
+            color: #38bdf8;
+            border-color: #1e293b;
+        }
+        .dark-mode .calc-btn-fn {
+            background-color: #0f172a;
+            color: #38bdf8;
+            border-color: #334155;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .dark-mode ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark-mode ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="h-full bg-white text-slate-900 flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <!-- FLOATING TRANSLUCENT 3D PRISMS CANVAS (NIGHT MODE BACKGROUND FOR ENTIRE SITE & PORTAL) -->
+    <canvas id="prism-bg-canvas"></canvas>
+
+    <!-- ==================== STAGE 1: PANTALLA PRINCIPAL (LANDING CORPORATIVA) ==================== -->
+    <div id="landing-page" class="flex-1 flex flex-col relative z-10">
+        
+        <!-- Top Executive Bar with Theme Toggle, Contact Info & Scarcity -->
+        <div class="bg-slate-900 text-white px-6 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs border-b border-slate-800">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <strong class="text-blue-300 font-extrabold tracking-wider uppercase">Convocatoria Directiva 2026</strong>
+                </span>
+                <span class="hidden md:inline text-slate-400">|</span>
+                <a href="tel:+50379094167" class="hover:text-blue-400 transition-colors flex items-center gap-1.5 font-bold text-slate-200">
+                    <i class="fa-solid fa-phone text-blue-400"></i> Contacto Oficial: +503 7909-4167
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- DAY / NIGHT THEME TOGGLE BUTTON -->
+                <button onclick="toggleTheme()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1.5" title="Cambiar Tema Día / Noche">
+                    <i id="theme-toggle-icon" class="fa-solid fa-moon text-amber-300"></i>
+                    <span id="theme-toggle-text">Modo Noche</span>
+                </button>
+
+                <span class="bg-red-500/20 text-red-300 border border-red-500/40 text-[11px] font-black px-3 py-0.5 rounded-full">
+                    ¡2 Cupos Disponibles de 26!
+                </span>
+                <button onclick="openVIPPortal()" class="bg-blue-600 hover:bg-blue-500 text-white font-black px-3.5 py-1 rounded-lg transition-all text-xs flex items-center gap-1.5 shadow-sm">
+                    Ingreso Portal VIP <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Executive Navigation Header -->
+        <header class="bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-6 py-3.5 sticky top-0 z-30 shadow-sm transition-colors">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                
+                <!-- 3D Prism Logo Beside Brand Name -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="returnToLandingPage()">
+                    <div class="prism-3d-mini">
+                        <div class="prism-object">
+                            <div class="facet-mini fm-front"></div>
+                            <div class="facet-mini fm-back"></div>
+                            <div class="facet-mini fm-right"></div>
+                            <div class="facet-mini fm-left"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white leading-none flex items-center gap-2">
+                            PRISMA CORPORATIVE
+                        </h1>
+                        <p class="text-[11px] font-bold text-blue-600 dark:text-blue-400 mt-0.5">Prisma Consultores en Gestión S.A. de C.V.</p>
+                    </div>
+                </div>
+
+                <!-- Executive Nav Items -->
+                <nav class="hidden lg:flex items-center gap-6 text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-200">
+                    <a href="#presentacion-empresa" class="hover:text-blue-600 transition-colors">Inicio</a>
+                    <a href="#quienes-somos" class="gold-nav-active hover:text-amber-700 transition-colors">Quiénes somos</a>
+                    <a href="#portafolio-servicio" class="hover:text-blue-600 transition-colors">Dashboard 360°</a>
+                    <a href="#leyes-financieras-oficiales" class="hover:text-blue-600 transition-colors text-emerald-600 font-extrabold">Leyes Financieras SV</a>
+                    <a href="#planes-anuales" class="hover:text-blue-600 transition-colors">Precios Anuales</a>
+                    <a href="#reseñas-clientes" class="hover:text-blue-600 transition-colors">Clientes (14)</a>
+                    <button onclick="openBuzonEticoModal()" class="hover:text-blue-600 transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-shield-cat text-blue-600 text-xs"></i> Buzón ético
+                    </button>
+                </nav>
+
+                <!-- Action Button & Phone -->
+                <div class="flex items-center gap-3">
+                    <a href="tel:+50379094167" class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 px-3 py-2 rounded-full border border-slate-200 dark:border-slate-700 transition-all">
+                        <i class="fa-solid fa-phone text-blue-600"></i> +503 7909-4167
+                    </a>
+                    <button onclick="openVIPPortal()" class="bg-[#0f172a] dark:bg-blue-600 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md transition-all flex items-center gap-2">
+                        <span>Prisma Dashboard 360°</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Main Landing Content -->
+        <main class="flex-1 space-y-16 pb-20">
+
+            <!-- HERO SECTION WITH TYPEWRITER TITLE & 3D PRISM -->
+            <section id="presentacion-empresa" class="max-w-7xl mx-auto px-6 pt-8">
+                <div class="bg-gradient-to-br from-slate-50 via-white to-blue-50/40 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 rounded-3xl p-8 sm:p-12 border border-slate-200 dark:border-slate-800 exec-shadow-lg relative overflow-hidden transition-colors">
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6">
+                            
+                            <div class="flex flex-wrap items-center gap-3">
+                                <span class="px-3.5 py-1.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-extrabold uppercase tracking-wider inline-flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-line text-blue-600"></i> Servucción B2B de Asesoría Financiera
+                                </span>
+                                <span class="text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1">
+                                    <i class="fa-solid fa-phone text-blue-600"></i> +503 7909-4167
+                                </span>
+                            </div>
+                            
+                            <!-- 3D PRISM LOGO NEXT TO TYPEWRITER HEADING -->
+                            <div class="flex items-start gap-4">
+                                <div class="prism-3d-hero shrink-0 mt-1 hidden sm:block">
+                                    <div class="prism-object">
+                                        <div class="facet-hero fh-front"></div>
+                                        <div class="facet-hero fh-back"></div>
+                                        <div class="facet-hero fh-right"></div>
+                                        <div class="facet-hero fh-left"></div>
+                                    </div>
+                                </div>
+                                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white leading-tight min-h-[90px] sm:min-h-[110px]">
+                                    <span id="typewriter-title" class="typewriter-cursor text-slate-900 dark:text-white"></span>
+                                </h2>
+                            </div>
+                            
+                            <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                                <strong>Prisma Consultores en Gestión S.A. de C.V.</strong> integra la infraestructura contable de su ERP en nuestro <strong>Dashboard 360°</strong>, otorgando a la Alta Dirección la asesoría mensual continuada de nuestros Directores Financieros para optimizar la liquidez y rentabilidad.
+                            </p>
+
+                            <!-- Key Metrics Highlights -->
+                            <div class="grid grid-cols-3 gap-4 pt-2 text-center">
+                                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow">
+                                    <span class="text-2xl sm:text-3xl font-black text-blue-600 dark:text-blue-400 block font-mono">-25 Días</span>
+                                    <span class="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-1 block">Reducción DSO</span>
+                                </div>
+                                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow">
+                                    <span class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 block font-mono">+4.6%</span>
+                                    <span class="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-1 block">Margen EBITDA</span>
+                                </div>
+                                <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow">
+                                    <span class="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400 block font-mono">1,565%</span>
+                                    <span class="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase mt-1 block">ROI en 6 Meses</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 flex flex-wrap items-center gap-4">
+                                <button onclick="openVIPPortal()" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all flex items-center gap-2">
+                                    Acceder al Dashboard 360° <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                                <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-halved text-emerald-600"></i> Respaldo SSF, MH (DGII), NIIF & NDA Bilateral
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <!-- SVG DATA PIPELINE ENGINE -->
+                        <div class="lg:col-span-5 space-y-5">
+                            
+                            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-4">
+                                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                                    <div>
+                                        <h4 class="text-sm font-extrabold text-slate-900 dark:text-white">Motor Data Pipeline ETL</h4>
+                                        <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Sincronización ERP a Mesa CFO</span>
+                                    </div>
+                                    <span class="text-emerald-600 bg-emerald-50 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Tiempo Real
+                                    </span>
+                                </div>
+
+                                <svg viewBox="0 0 500 130" class="w-full h-auto">
+                                    <path d="M 90 65 L 250 65" stroke="#2563eb" stroke-width="3" fill="none" class="animate-pulse-flow" />
+                                    <path d="M 250 65 L 410 65" stroke="#10b981" stroke-width="3" fill="none" class="animate-pulse-flow" />
+                                    
+                                    <g class="animate-float" style="animation-delay: 0s;">
+                                        <rect x="20" y="25" width="80" height="80" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" />
+                                        <text x="60" y="60" text-anchor="middle" fill="#0f172a" font-size="11" font-weight="bold">ERP Cliente</text>
+                                        <text x="60" y="78" text-anchor="middle" fill="#64748b" font-size="9">Datos Base</text>
+                                    </g>
+
+                                    <g class="animate-float" style="animation-delay: 1s;">
+                                        <rect x="210" y="25" width="80" height="80" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+                                        <text x="250" y="60" text-anchor="middle" fill="#1d4ed8" font-size="11" font-weight="bold">Pipeline ETL</text>
+                                        <text x="250" y="78" text-anchor="middle" fill="#3b82f6" font-size="9">Prisma TI</text>
+                                    </g>
+
+                                    <g class="animate-float" style="animation-delay: 2s;">
+                                        <rect x="370" y="20" width="95" height="90" rx="16" fill="#ecfdf5" stroke="#10b981" stroke-width="2" />
+                                        <text x="417" y="60" text-anchor="middle" fill="#047857" font-size="12" font-weight="bold">Dashboard 360°</text>
+                                        <text x="417" y="78" text-anchor="middle" fill="#059669" font-size="9">Mesa CFO</text>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <div class="bg-blue-50/80 dark:bg-blue-950/60 p-5 rounded-2xl border border-blue-200 dark:border-blue-900 text-xs text-blue-900 dark:text-blue-200 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-headset text-blue-600 text-xl"></i>
+                                    <div>
+                                        <strong class="block">¿Dudas sobre la Convocatoria?</strong>
+                                        <span class="text-slate-600 dark:text-slate-300">Atención directa: +503 7909-4167</span>
+                                    </div>
+                                </div>
+                                <a href="tel:+50379094167" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-lg transition-all text-[11px]">
+                                    Llamar
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: QUIÉNES SOMOS & INSTITUCIONAL -->
+            <section id="quienes-somos" class="max-w-7xl mx-auto px-6 space-y-10">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <span class="text-xs font-extrabold text-amber-700 dark:text-amber-300 uppercase tracking-widest bg-amber-50 dark:bg-amber-950 px-4 py-1.5 rounded-full border border-amber-200 dark:border-amber-800">
+                        Identidad & Gobernanza Corporativa
+                    </span>
+                    <h3 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Quiénes Somos en Prisma Corporative</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-base">
+                        Fundada como <strong>Prisma Consultores en Gestión S.A. de C.V.</strong>, somos la firma de referencia en consultoría directiva y servucción de intangibles de alta complejidad financiera.
+                    </p>
+                </div>
+
+                <!-- Executive Statement Box -->
+                <div class="bg-slate-900 text-white p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-xl relative">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                        <div class="md:col-span-8 space-y-4">
+                            <span class="text-xs font-extrabold text-blue-400 uppercase tracking-wider block">
+                                <i class="fa-solid fa-quote-left text-lg mr-2"></i> Mensaje de la Alta Dirección
+                            </span>
+                            <blockquote class="text-base sm:text-lg text-slate-200 italic font-light leading-relaxed">
+                                "En un entorno volátil, la intuición directiva ya no es suficiente. Nuestra misión en Prisma es dotar a la Alta Dirección de una estructura analítica rigurosa, un control estricto de caja bajo NIIF y el soporte del producto Dashboard 360° respaldado por directores financieros experimentados."
+                            </blockquote>
+                            <div class="pt-2 flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-blue-600 text-white font-extrabold flex items-center justify-center text-lg border-2 border-white">
+                                    DG
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-white text-sm">Dirección General & Consejo Consultivo</h4>
+                                    <span class="text-xs text-blue-300 font-semibold">Prisma Consultores en Gestión S.A. de C.V. &bull; Tel: +503 7909-4167</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-4 bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center space-y-3">
+                            <i class="fa-solid fa-award text-amber-400 text-3xl"></i>
+                            <h5 class="text-sm font-bold text-white">Certificación ISO 27001, NIIF, SSF & MH</h5>
+                            <p class="text-xs text-slate-400">Modelos auditados, gobernanza de datos estricta y convenios de confidencialidad NDA bilaterales.</p>
+                            <span class="inline-block bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-extrabold px-3 py-1 rounded-full">100% Auditado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission, Vision, Giro Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-4 hover:border-blue-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xl">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Misión Institucional</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Proveer servucción de intangibles estratégicos que aceleren la liquidez, reduzcan riesgos de mercado y permitan a las juntas directivas tomar decisiones validadas por datos analíticos.
+                            </p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop" 
+                             alt="Analítica Financiera" 
+                             onerror="this.src='https://placehold.co/800x400/f8fafc/0f172a?text=Mision+Prisma'"
+                             class="w-full h-36 object-cover rounded-xl mt-2 border border-slate-100 dark:border-slate-800">
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-4 hover:border-blue-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xl">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Visión Estratégica</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Ser el estándar de referencia corporativo en América Latina para soluciones de Business Intelligence y asesoría CFO continuada con retorno de inversión garantizado.
+                            </p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop" 
+                             alt="Visión Ejecutiva" 
+                             onerror="this.src='https://placehold.co/800x400/f8fafc/0f172a?text=Vision+Prisma'"
+                             class="w-full h-36 object-cover rounded-xl mt-2 border border-slate-100 dark:border-slate-800">
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-4 hover:border-blue-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xl">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Giro de la Empresa</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Servicios Profesionales de Asesoría Financiera, Consultoría Organizacional, Modelación de Procesos e Integración Tecnológica SaaS (*CFO as a Service* & BI B2B).
+                            </p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop" 
+                             alt="Giro Corporativo" 
+                             onerror="this.src='https://placehold.co/800x400/f8fafc/0f172a?text=Giro+Prisma'"
+                             class="w-full h-36 object-cover rounded-xl mt-2 border border-slate-100 dark:border-slate-800">
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- LEYES Y NORMATIVAS FINANCIERAS CON LINKS DIRECTOS (TARGET=_BLANK) -->
+            <section id="leyes-financieras-oficiales" class="max-w-7xl mx-auto px-6 space-y-8">
+                <div class="bg-white dark:bg-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-8 transition-colors">
+                    
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6">
+                        <div>
+                            <span class="text-xs font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-50 dark:bg-blue-950 px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800">
+                                Fuentes Gubernamentales & Financieras Oficiales
+                            </span>
+                            <h3 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-2">Marco Regulatorio Amparado & Links Oficiales</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Consulte directamente cada norma y entidad reguladora en una pestaña nueva.</p>
+                        </div>
+                        <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-600 text-base"></i> Enlaces Oficiales Verificados
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
+                        
+                        <!-- 1. MH DGII -->
+                        <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4 flex flex-col justify-between hover:border-blue-500 transition-all">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-black text-slate-900 dark:text-white text-base">Ministerio de Hacienda (MH / DGII)</span>
+                                    <span class="bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold px-2 py-0.5 rounded text-[10px]">Fiscal</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                                    Regula las declaraciones obligatorias de IVA (Form. F07, 13%), Pago a Cuenta (Form. F14, 1.75%), e ISR Anual Corporativo (Form. F11, 25%/30%).
+                                </p>
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-700 dark:text-slate-300">
+                                    <strong>Norma:</strong> Ley de Impuesto sobre la Renta y Código Tributario SV
+                                </div>
+                            </div>
+                            <a href="https://www.mh.gob.sv/" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+                                <span>Consultar en Portal MH</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
+                        <!-- 2. SSF -->
+                        <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4 flex flex-col justify-between hover:border-emerald-500 transition-all">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-black text-slate-900 dark:text-white text-base">Superintendencia Financiera (SSF)</span>
+                                    <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-0.5 rounded text-[10px]">Prudencial</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                                    Emite las Normas Prudenciales Bancarias (NPB/NCP) que rigen los coeficientes de liquidez y solvencia patrimonial mínima del 12%.
+                                </p>
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-700 dark:text-slate-300">
+                                    <strong>Norma:</strong> Ley de Leyes Supervisión y Regulación SSF
+                                </div>
+                            </div>
+                            <a href="https://www.ssf.gob.sv/" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+                                <span>Consultar Normas SSF</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
+                        <!-- 3. BCR -->
+                        <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4 flex flex-col justify-between hover:border-amber-500 transition-all">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-black text-slate-900 dark:text-white text-base">Banco Central de Reserva (BCR)</span>
+                                    <span class="bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-bold px-2 py-0.5 rounded text-[10px]">Monetario</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                                    Autoridad monetaria que regula las tasas de referencia, la Ley de Integración Monetaria y estadísticas macroeconómicas oficiales.
+                                </p>
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-700 dark:text-slate-300">
+                                    <strong>Norma:</strong> Ley Orgánica BCR & Integración Monetaria
+                                </div>
+                            </div>
+                            <a href="https://www.bcr.gob.sv/" target="_blank" rel="noopener noreferrer" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+                                <span>Consultar Datos BCR</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
+                        <!-- 4. CNR -->
+                        <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4 flex flex-col justify-between hover:border-indigo-500 transition-all">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-black text-slate-900 dark:text-white text-base">Centro Nacional de Registros (CNR)</span>
+                                    <span class="bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold px-2 py-0.5 rounded text-[10px]">Mercantil</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                                    Registra las matrículas mercantiles y exige el depósito de Balances Generales y Dictamen de Auditoría en un máximo de 120 días post cierre.
+                                </p>
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-700 dark:text-slate-300">
+                                    <strong>Norma:</strong> Art. 474 Código de Comercio de El Salvador
+                                </div>
+                            </div>
+                            <a href="https://www.cnr.gob.sv/" target="_blank" rel="noopener noreferrer" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+                                <span>Portal CNR El Salvador</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
+                        <!-- 5. IFRS FOUNDATION -->
+                        <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4 flex flex-col justify-between hover:border-purple-500 transition-all md:col-span-2 lg:col-span-2">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-black text-slate-900 dark:text-white text-base">IFRS Foundation (Normas NIIF Internacionales)</span>
+                                    <span class="bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-bold px-2 py-0.5 rounded text-[10px]">Internacional</span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                                    Estándar contable global obligatorio para la emisión de estados financieros comparables, valoración de activos e informes auditables auditados por consejos directivos.
+                                </p>
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-[10px] text-slate-700 dark:text-slate-300">
+                                    <strong>Norma:</strong> NIIF para PyMEs & NIIF Completas (IASB)
+                                </div>
+                            </div>
+                            <a href="https://www.ifrs.org/" target="_blank" rel="noopener noreferrer" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+                                <span>Consultar Taxonomía NIIF Global</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- PORTAFOLIO DE SERVICIOS (DASHBOARD 360°) -->
+            <section id="portafolio-servicio" class="max-w-7xl mx-auto px-6 space-y-8">
+                <div class="bg-slate-50 dark:bg-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-8 transition-colors">
+                    <div class="text-center max-w-3xl mx-auto space-y-3">
+                        <span class="text-xs font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-100 dark:bg-blue-950 px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800">
+                            Producto Estrella
+                        </span>
+                        <h3 class="text-3xl font-black text-slate-900 dark:text-white">Servicio Prisma Dashboard 360°</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm">
+                            Solución integral de Business Intelligence + Asesoría CFO continuada para empresas B2B.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
+                        <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 exec-shadow space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-water"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">1. Módulo de Liquidez</h4>
+                            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">Monitoreo dinámico del Runway de caja, DSO (días de cobro) y DPO (días de pago a proveedores).</p>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 exec-shadow space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-chart-pie"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">2. Rentabilidad EBITDA</h4>
+                            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">Desglose analítico de utilidades operativas por unidad de negocio, cliente y canal comercial.</p>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 exec-shadow space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">3. Simulador What-If</h4>
+                            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">Proyecciones de impacto financiero ante variaciones de tipo de cambio, tasa de interés o inflación.</p>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 exec-shadow space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">4. Advisory CFO 1 a 1</h4>
+                            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">Sesiones mensuales presenciales u online con nuestros Directores Financieros para ejecución de mejoras.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 text-center">
+                        <button onclick="openVIPPortal()" class="bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm px-8 py-3.5 rounded-xl shadow-lg transition-all inline-flex items-center gap-2">
+                            <span>Ingresar al Portal para Probar Simulador 360°</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PLANES DE PRECIOS ANUALES -->
+            <section id="planes-anuales" class="max-w-7xl mx-auto px-6 space-y-8">
+                <div class="bg-white dark:bg-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow-lg space-y-8 transition-colors">
+                    <div class="text-center max-w-3xl mx-auto space-y-3">
+                        <span class="text-xs font-extrabold text-amber-700 dark:text-amber-300 uppercase tracking-widest bg-amber-50 dark:bg-amber-950 px-4 py-1.5 rounded-full border border-amber-200 dark:border-amber-800">
+                            Modelo de Inversión Anualizado
+                        </span>
+                        <h3 class="text-3xl font-black text-slate-900 dark:text-white">Planes Estratégicos Corporativos</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm">
+                            Estructura de inversión clara, escalable y sin costos ocultos para organizaciones de alto nivel.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                        
+                        <!-- PLAN 1: STRATEGIC CORE -->
+                        <div class="bg-slate-50 dark:bg-slate-800/60 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 flex flex-col justify-between hover:border-blue-300 transition-all">
+                            <div class="space-y-4">
+                                <span class="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                                    PyMEs & Empresas en Crecimiento
+                                </span>
+                                <h4 class="text-xl font-black text-slate-900 dark:text-white">Strategic Core</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">BI Base, Auditoría Contable NIIF y Diagnóstico inicial de liquidez.</p>
+                                
+                                <div class="pt-2 border-t border-slate-200 dark:border-slate-700">
+                                    <div class="text-3xl font-black font-mono text-slate-900 dark:text-white">$14,400 <span class="text-xs text-slate-500 font-sans">USD / año</span></div>
+                                    <span class="text-[11px] text-blue-600 dark:text-blue-400 font-bold block mt-0.5">Eq. $1,200 USD / mes (Facturación Anual)</span>
+                                </div>
+
+                                <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300 pt-2 border-t border-slate-200 dark:border-slate-700">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Dashboard BI 360° (Módulo Liquidez + EBITDA)</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Integración API ERP Estándar</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> 1 Sesión Trimestral de Consultoría Directiva</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-600"></i> Formatos Financieros Auditados NIIF / MH</li>
+                                </ul>
+                            </div>
+
+                            <button onclick="openVIPPortal()" class="w-full bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 text-white font-extrabold text-xs py-3 rounded-xl transition-all">
+                                Seleccionar Strategic Core
+                            </button>
+                        </div>
+
+                        <!-- PLAN 2: EXECUTIVE 360° -->
+                        <div class="bg-blue-600 text-white p-8 rounded-3xl border-2 border-blue-400 shadow-xl space-y-6 flex flex-col justify-between transform lg:-translate-y-3 relative overflow-hidden">
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                                    Más Elegido
+                                </span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <span class="bg-blue-500/50 text-blue-100 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                                    CFO as a Service + BI Avanzado
+                                </span>
+                                <h4 class="text-2xl font-black text-white">Executive 360°</h4>
+                                <p class="text-xs text-blue-100">Solución completa con Acompañamiento Mensual y Simulador Predictivo.</p>
+                                
+                                <div class="pt-2 border-t border-blue-400/50">
+                                    <div class="text-4xl font-black font-mono text-white">$26,400 <span class="text-xs text-blue-200 font-sans">USD / año</span></div>
+                                    <span class="text-[11px] text-amber-300 font-bold block mt-0.5">Eq. $2,200 USD / mes (Facturación Anual)</span>
+                                </div>
+
+                                <ul class="space-y-2.5 text-xs text-blue-100 pt-2 border-t border-blue-400/50">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-400"></i> Todos los 5 Módulos del Dashboard 360°</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-400"></i> Sesiones Mensuales Directivas 1 a 1 (*Advisory*)</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-400"></i> Simulador de Escenarios What-If en Tiempo Real</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-400"></i> Auditoría NIIF, MH & Contención de Fugas de Caja</li>
+                                </ul>
+                            </div>
+
+                            <button onclick="openVIPPortal()" class="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs py-3.5 rounded-xl transition-all shadow-md">
+                                Seleccionar Executive 360°
+                            </button>
+                        </div>
+
+                        <!-- PLAN 3: CORPORATE ENTERPRISE -->
+                        <div class="bg-slate-50 dark:bg-slate-800/60 p-8 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6 flex flex-col justify-between hover:border-indigo-300 transition-all">
+                            <div class="space-y-4">
+                                <span class="bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                                    Grupos Corporativos & Multisede
+                                </span>
+                                <h4 class="text-xl font-black text-slate-900 dark:text-white">Corporate Enterprise</h4>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Gobernanza Total, M&A, BI Multisede y Soporte 24/7 Dedicado.</p>
+                                
+                                <div class="pt-2 border-t border-slate-200 dark:border-slate-700">
+                                    <div class="text-3xl font-black font-mono text-slate-900 dark:text-white">$45,600 <span class="text-xs text-slate-500 font-sans">USD / año</span></div>
+                                    <span class="text-[11px] text-indigo-600 dark:text-indigo-400 font-bold block mt-0.5">Eq. $3,800 USD / mes (Facturación Anual)</span>
+                                </div>
+
+                                <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300 pt-2 border-t border-slate-200 dark:border-slate-700">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-600"></i> Multi-empresa y Consolidación de Grupos</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-600"></i> CFO Asignado Dedicado + Asistente TI 24/7</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-600"></i> Consultoría en Fusiones & Adquisiciones (M&A)</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-600"></i> Ciberseguridad ISO 27001 Dedicada</li>
+                                </ul>
+                            </div>
+
+                            <button onclick="openVIPPortal()" class="w-full bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 text-white font-extrabold text-xs py-3 rounded-xl transition-all">
+                                Seleccionar Corporate Enterprise
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- CREATIVE PORTAL VIP GATEWAY BANNER -->
+            <section id="gateway-portal" class="max-w-7xl mx-auto px-6">
+                <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-3xl p-8 sm:p-12 border border-slate-800 shadow-2xl relative overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                        
+                        <div class="lg:col-span-7 space-y-4">
+                            <span class="px-4 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-xs font-extrabold uppercase tracking-widest inline-flex items-center gap-2">
+                                <i class="fa-solid fa-lock-open text-emerald-400"></i> Acceso Directivo VIP Gateway
+                            </span>
+                            <h3 class="text-2xl sm:text-3xl font-black text-white">
+                                Ingrese al Portal del Producto & Calculadora Tributaria en Vivo
+                            </h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Explore el simulador interactivo de ROI, las gráficas de impacto financiero en tiempo real, consulte las leyes tributarias de El Salvador con nuestro Asistente de IA "PRISMA" y agende su sesión de consultoría privada.
+                            </p>
+
+                            <!-- Copy Credentials Box -->
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 max-w-lg">
+                                <div class="flex items-center justify-between border-b border-slate-800 pb-2 text-xs">
+                                    <span class="font-extrabold text-blue-400 uppercase tracking-wider flex items-center gap-2">
+                                        <i class="fa-solid fa-key"></i> LLAVES DE ACCESO ASIGNADAS
+                                    </span>
+                                    <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded">VÁLIDO</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                                    <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+                                        <span class="text-slate-500 text-[10px] block font-sans">USUARIO:</span>
+                                        <span id="cred-user" class="text-blue-300 font-bold">VIP-PRISMA2026</span>
+                                    </div>
+                                    <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+                                        <span class="text-slate-500 text-[10px] block font-sans">CONTRASEÑA:</span>
+                                        <span id="cred-pass" class="text-emerald-300 font-bold">Prisma360#2026</span>
+                                    </div>
+                                </div>
+                                <button onclick="copyCredentials()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs py-2 rounded-xl transition-all border border-slate-700 flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-copy text-blue-400"></i> <span id="copy-text">Copiar Credenciales</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 text-center space-y-4 bg-slate-950/90 p-6 rounded-3xl border border-slate-800">
+                            <div class="w-16 h-16 mx-auto bg-blue-600/20 text-blue-400 rounded-2xl p-3 flex items-center justify-center border border-blue-500/30 text-2xl">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-extrabold text-white">Portal Directivo Prisma 360°</h4>
+                                <p class="text-xs text-slate-400 mt-1">Soporte telefónico directo: +503 7909-4167</p>
+                            </div>
+                            <button onclick="openVIPPortal()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black text-xs py-3.5 rounded-xl shadow-xl transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-key"></i> DESBLOQUEAR PORTAL EJECUTIVO
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14 VERIFIED REVIEWS SECTION -->
+            <section id="reseñas-clientes" class="max-w-7xl mx-auto px-6 space-y-8">
+                <div class="bg-white dark:bg-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-8 transition-colors">
+                    
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-slate-100 dark:border-slate-800 pb-6">
+                        <div>
+                            <span class="text-xs font-extrabold text-amber-700 dark:text-amber-300 uppercase tracking-widest bg-amber-50 dark:bg-amber-950 px-4 py-1.5 rounded-full border border-amber-200 dark:border-amber-800">
+                                Testimonios Verificados B2B
+                            </span>
+                            <h3 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-2">14 Reseñas de Clientes Corporativos</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">Evaluación directa del servicio Dashboard 360° por Juntas Directivas.</p>
+                        </div>
+
+                        <div class="flex items-center gap-4 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 px-6 py-3 rounded-2xl">
+                            <span class="text-3xl font-black text-amber-600 dark:text-amber-400 font-mono">4.9 / 5.0</span>
+                            <div class="text-xs">
+                                <div class="text-amber-500 font-bold text-sm">★★★★★</div>
+                                <span class="text-slate-600 dark:text-slate-300 font-bold">100% Recomendado B2B</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="landing-reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
+                        <!-- Populated by JS -->
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Landing Footer -->
+        <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 px-6 py-8 mt-auto transition-colors">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+                <div>
+                    <strong>Prisma Consultores en Gestión S.A. de C.V.</strong> &bull; Contacto: <a href="tel:+50379094167" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">+503 7909-4167</a> &bull; &copy; 2026 Todos los derechos reservados.
+                </div>
+                <div class="flex items-center gap-6 text-xs font-semibold">
+                    <a href="#presentacion-empresa" class="hover:text-blue-600">La Firma</a>
+                    <a href="#leyes-financieras-oficiales" class="hover:text-blue-600">Leyes Financieras SV</a>
+                    <button onclick="openBuzonEticoModal()" class="hover:text-blue-600">Buzón Ético ISO 27001</button>
+                    <button onclick="openVIPPortal()" class="text-blue-600 dark:text-blue-400 font-extrabold hover:underline">Acceso Portal VIP</button>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- MODAL BUZÓN ÉTICO & COMPLIANCE -->
+    <div id="buzon-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 max-w-lg w-full p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6 relative">
+            <button onclick="closeBuzonEticoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 dark:hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-shield-cat"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-slate-900 dark:text-white">Buzón Ético & Compliance B2B</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Canal Confidencial Protegido bajo ISO 27001 y NDA</p>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Este canal permite enviar reportes, consultas sobre gobernanza o solicitar verificación del código de ética a nuestro Comité de Calidad.
+            </p>
+
+            <form onsubmit="handleBuzonSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Tipo de Consulta o Reporte</label>
+                    <select required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white font-semibold focus:outline-none focus:border-blue-600">
+                        <option value="etica">Consulta de Código de Ética Directiva</option>
+                        <option value="nda">Verificación de NDA y Confidencialidad</option>
+                        <option value="datos">Protección de Datos Personales (ISO 27001)</option>
+                        <option value="auditoria">Auditoría de Cumplimiento NIIF / SSF / MH</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Detalles del Mensaje</label>
+                    <textarea rows="4" required placeholder="Escriba aquí los detalles de su reporte..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium focus:outline-none focus:border-blue-600"></textarea>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="anon-check" class="rounded text-blue-600 focus:ring-blue-500">
+                    <label for="anon-check" class="text-slate-600 dark:text-slate-300 text-[11px] font-semibold">Deseo que este mensaje se envíe en modo 100% Anónimo</label>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane text-blue-400"></i> ENVIAR AL COMITÉ DE COMPLIANCE
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOGIN / VIP OVERLAY MODAL -->
+    <div id="login-overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/85 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 max-w-md w-full p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6">
+            
+            <div class="text-center space-y-2">
+                <div class="prism-3d-mini mx-auto">
+                    <div class="prism-object">
+                        <div class="facet-mini fm-front"></div>
+                        <div class="facet-mini fm-back"></div>
+                        <div class="facet-mini fm-right"></div>
+                        <div class="facet-mini fm-left"></div>
+                    </div>
+                </div>
+                <h3 class="text-xl font-black text-slate-900 dark:text-white">Acceso al Portal Directivo</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Prisma Consultores en Gestión S.A. de C.V.</p>
+            </div>
+
+            <div id="login-alert" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
+
+            <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Usuario Directivo</label>
+                    <input type="text" id="login-username" required placeholder="Ej. VIP-PRISMA2026" value="VIP-PRISMA2026" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-xs text-slate-900 dark:text-white font-mono font-bold focus:outline-none focus:border-blue-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" value="Prisma360#2026" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-xs text-slate-900 dark:text-white font-mono font-bold focus:outline-none focus:border-blue-600">
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-950/60 p-3 rounded-xl border border-blue-100 dark:border-blue-900 text-[11px] text-blue-800 dark:text-blue-300">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Credenciales: <strong class="font-mono">VIP-PRISMA2026</strong> / <strong class="font-mono">Prisma360#2026</strong>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión en Portal
+                </button>
+            </form>
+
+            <div class="text-center pt-2">
+                <button onclick="returnToLandingPage()" class="text-xs text-slate-500 dark:text-slate-400 hover:text-blue-600 font-semibold underline">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Regresar a la Pantalla Principal
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== STAGE 3: PORTAL EJECUTIVO WORKSPACE ==================== -->
+    <div id="portal-app" class="hidden flex h-screen overflow-hidden bg-slate-50 dark:bg-slate-950 relative z-10 transition-colors">
+        
+        <!-- Sidebar Navigation (Dark Slate Executive Theme) -->
+        <aside class="w-72 bg-slate-900 text-white flex flex-col shrink-0 border-r border-slate-800 z-30">
+            
+            <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+                <div class="prism-3d-mini">
+                    <div class="prism-object">
+                        <div class="facet-mini fm-front"></div>
+                        <div class="facet-mini fm-back"></div>
+                        <div class="facet-mini fm-right"></div>
+                        <div class="facet-mini fm-left"></div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-sm font-black tracking-tight block text-white">PRISMA CORPORATIVE</span>
+                    <span class="text-[10px] text-slate-400 block font-medium">Prisma Consultores S.A.</span>
+                </div>
+            </div>
+
+            <!-- Active User Session Card -->
+            <div class="p-4 bg-slate-800/80 mx-3 my-3 rounded-2xl border border-slate-700 flex items-center justify-between">
+                <div class="flex items-center gap-2.5 overflow-hidden">
+                    <div class="w-8 h-8 rounded-xl bg-blue-600 text-white font-extrabold flex items-center justify-center text-xs shrink-0">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div class="overflow-hidden text-xs">
+                        <span id="session-user-badge" class="text-white font-bold truncate block">VIP-PRISMA2026</span>
+                        <span class="text-emerald-400 text-[10px] font-semibold flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Sesión VIP Activa
+                        </span>
+                    </div>
+                </div>
+                <button onclick="triggerLogout()" title="Cerrar Sesión" class="text-slate-400 hover:text-red-400 text-xs p-1.5 transition-all">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Modules -->
+            <nav class="flex-1 px-3 space-y-1.5 overflow-y-auto py-2 text-xs">
+                
+                <div class="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 px-3 pt-2 pb-1">
+                    Navegación del Portal
+                </div>
+
+                <button onclick="switchMainModule('mod1')" id="nav-btn-mod1" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all bg-blue-600 text-white shadow-md">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-sitemap text-sm"></i>
+                        <span class="text-left">M1: Firma & Organigrama (20 Puestos)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+
+                <button onclick="switchMainModule('mod2')" id="nav-btn-mod2" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-chart-line text-sm text-blue-400"></i>
+                        <span class="text-left">M2: Dashboards BI & Ganancias</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+
+                <button onclick="switchMainModule('mod3')" id="nav-btn-mod3" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-calculator text-sm text-emerald-400"></i>
+                        <span class="text-left">M3: Calculadora Científica & CFO</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+
+                <button onclick="switchMainModule('mod4')" id="nav-btn-mod4" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-file-excel text-sm text-emerald-500"></i>
+                        <span class="text-left">M4: Plantillas Excel & Leyes</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+
+                <button onclick="switchMainModule('mod5')" id="nav-btn-mod5" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-lightbulb text-sm text-amber-400"></i>
+                        <span class="text-left">M5: Consejos & Playbooks CFO</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+
+                <button onclick="switchMainModule('mod6')" id="nav-btn-mod6" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-headset text-sm text-purple-400"></i>
+                        <span class="text-left">M6: Solucionador 360° & Hub ERP</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+
+                <button onclick="switchMainModule('mod-assistant')" id="nav-btn-mod-assistant" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-extrabold transition-all text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 mt-2">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-robot text-sm text-amber-400"></i>
+                        <span class="text-left">Asistente Gemini IA "PRISMA"</span>
+                    </div>
+                    <span class="bg-amber-400 text-slate-950 text-[9px] px-1.5 py-0.5 rounded font-black">IA</span>
+                </button>
+
+            </nav>
+
+            <div class="p-4 border-t border-slate-800 space-y-2">
+                <a href="tel:+50379094167" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs py-2 rounded-xl transition-all flex items-center justify-center gap-2 font-bold">
+                    <i class="fa-solid fa-phone text-blue-400"></i> +503 7909-4167
+                </a>
+                <button onclick="returnToLandingPage()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-arrow-left"></i> Pantalla Principal
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- Main Portal Workspace -->
+        <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-slate-50 dark:bg-slate-950 relative transition-colors">
+            
+            <!-- Top Header Navbar of Portal -->
+            <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 sticky top-0 z-20 shadow-sm transition-colors">
+                
+                <div class="flex items-center gap-3">
+                    <div class="prism-3d-mini">
+                        <div class="prism-object">
+                            <div class="facet-mini fm-front"></div>
+                            <div class="facet-mini fm-back"></div>
+                            <div class="facet-mini fm-right"></div>
+                            <div class="facet-mini fm-left"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <span id="module-indicator-badge" class="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-extrabold text-[10px] uppercase tracking-wider">
+                            MÓDULO 1: LA FIRMA & ANATOMÍA DEL PRODUCTO
+                        </span>
+                        <h2 id="module-title-header" class="text-base font-extrabold text-slate-900 dark:text-white">
+                            Inicio, Gobierno & Explicación Intuitiva
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 text-xs">
+                    <button onclick="toggleTheme()" class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold transition-all flex items-center gap-1.5">
+                        <i id="portal-theme-icon" class="fa-solid fa-moon"></i>
+                        <span id="portal-theme-text">Modo Noche</span>
+                    </button>
+
+                    <a href="tel:+50379094167" class="hidden sm:flex items-center gap-1.5 font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <i class="fa-solid fa-phone text-blue-600"></i> +503 7909-4167
+                    </a>
+
+                    <button onclick="returnToLandingPage()" class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-house text-blue-600"></i> Landing
+                    </button>
+
+                    <button onclick="triggerLogout()" title="Salir del Portal" class="bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-300 font-bold px-3 py-2 rounded-xl border border-red-200 dark:border-red-900 transition-all">
+                        <i class="fa-solid fa-power-off"></i> Salir
+                    </button>
+                </div>
+
+            </header>
+
+            <!-- Dynamic Module Views Container -->
+            <div class="p-6 sm:p-8 space-y-8 flex-1 pb-24">
+
+                <!-- VIEW 1: MÓDULO 1 (FIRMA & ORGANIGRAMA DE 20 PUESTOS) -->
+                <div id="view-mod1" class="space-y-6">
+                    <div class="border-b border-slate-200 dark:border-slate-800 flex flex-wrap gap-4 sm:gap-8 text-sm">
+                        <button onclick="switchSubTab('mod1-tab1')" id="mod1-tab1-btn" class="tab-active pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-sitemap"></i> 1. Organigrama Corporativo (20 Puestos) & Perfil
+                        </button>
+                        <button onclick="switchSubTab('mod1-tab2')" id="mod1-tab2-btn" class="tab-inactive pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-cubes"></i> 2. Anatomía del Producto Dashboard 360°
+                        </button>
+                    </div>
+
+                    <!-- SUBTAB 1: PERFIL & ORGANIGRAMA INTERACTIVO COMPLETO -->
+                    <div id="mod1-tab1-content" class="space-y-6">
+                        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-4">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+                                <div>
+                                    <span class="bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase">
+                                        Estructura Directiva Auditada
+                                    </span>
+                                    <h3 class="text-xl font-black text-slate-900 dark:text-white mt-1 flex items-center gap-2">
+                                        <i class="fa-solid fa-sitemap text-blue-600"></i> Organigrama Funcional de Prisma (20 Puestos)
+                                    </h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Alta Dirección, Dirección de Consultoría y Dirección Administrativa y Financiera.</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                                    <input type="text" id="organigram-search" oninput="filterOrganigram()" placeholder="Buscar puesto o función..." class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs rounded-xl px-3.5 py-2 w-full sm:w-56 focus:outline-none focus:border-blue-600 text-slate-900 dark:text-white">
+                                    <select id="organigram-filter" onchange="filterOrganigram()" class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-blue-600 text-slate-900 dark:text-white">
+                                        <option value="all">Todas las Áreas</option>
+                                        <option value="alta">Alta Dirección</option>
+                                        <option value="consultoria">Consultoría</option>
+                                        <option value="finanzas">Admin & Finanzas</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="organigram-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-xs">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTAB 2: ANATOMÍA DEL PRODUCTO -->
+                    <div id="mod1-tab2-content" class="hidden space-y-6">
+                        <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
+                            <div>
+                                <span class="bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase">
+                                    Arquitectura del Producto
+                                </span>
+                                <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-2">
+                                    Explicación Intuitiva de Dashboard 360°
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
+                                    Cómo integramos la contabilidad de su ERP con la asesoría mensual continuada de la mesa CFO.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                                <div class="bg-slate-50 dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-database"></i></div>
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">Extractor ETL Multinivel</h4>
+                                    <p class="text-slate-600 dark:text-slate-300">Conexión directa con SAP, QuickBooks, Xero o Excel sin interferir en la operación habitual.</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-chart-pie"></i></div>
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">Monitor de Margen EBITDA</h4>
+                                    <p class="text-slate-600 dark:text-slate-300">Desglose analítico de rentabilidad por producto, cliente y centro de costos en tiempo real.</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-user-shield"></i></div>
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">Mesa Directiva CFO 1 a 1</h4>
+                                    <p class="text-slate-600 dark:text-slate-300">Acompañamiento directivo mensual presencial y virtual para ejecución de mejoras estratégicas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: MÓDULO 2 (DASHBOARDS BI, METRICAS & GANANCIAS) -->
+                <div id="view-mod2" class="hidden space-y-6">
+                    
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div>
+                                <span class="bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-black px-3 py-1 rounded-full uppercase">
+                                    Impacto Financiero Real & Conversión
+                                </span>
+                                <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-1">Dashboards de Resultados & Rendimiento</h3>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
+                                ROI Caso Real: 1,565.35%
+                            </span>
+                        </div>
+
+                        <!-- TOP KPIS SUMMARY CARDS -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                                <span class="text-2xl font-black text-blue-600 dark:text-blue-400 font-mono block">$3,200,000</span>
+                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Facturación Auditada</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                                <span class="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono block">$147,200</span>
+                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Fugas Contenidas</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                                <span class="text-2xl font-black text-amber-600 dark:text-amber-400 font-mono block">65 → 40 Días</span>
+                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Reducción DSO Cobros</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                                <span class="text-2xl font-black text-purple-600 dark:text-purple-400 font-mono block">9.2% → 13.8%</span>
+                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Expansión EBITDA</span>
+                            </div>
+                        </div>
+
+                        <!-- CHARTS GRID -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4">
+                            <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Reducción del Periodo de Cobro (DSO Días)</h4>
+                                <div class="h-64 relative">
+                                    <canvas id="portalDsoChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Expansión de Margen EBITDA (%)</h4>
+                                <div class="h-64 relative">
+                                    <canvas id="portalEbitdaChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- VIEW 3: MÓDULO 3 (CALCULADORA CIENTÍFICA & SUITE CFO) -->
+                <div id="view-mod3" class="hidden space-y-6">
+                    
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
+                        
+                        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div>
+                                <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[10px] font-black px-3 py-1 rounded-full uppercase">
+                                    Herramienta Científica Dual
+                                </span>
+                                <h3 class="text-xl font-black text-slate-900 dark:text-white mt-1">Calculadora Científica & Suite CFO Empresarial</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Modo Científico completo + Algoritmos de VAN (NPV), TIR, Razón Ácida y Solvencia SSF.</p>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="switchCalcMode('sci')" id="btn-mode-sci" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-blue-600 text-white shadow-md">
+                                    <i class="fa-solid fa-calculator mr-1"></i> Modo Científico
+                                </button>
+                                <button onclick="switchCalcMode('biz')" id="btn-mode-biz" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+                                    <i class="fa-solid fa-chart-line mr-1"></i> Suite Financiera Empresarial
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CALCULADORA CIENTÍFICA COMPLETA -->
+                        <div id="calc-sci-container" class="max-w-md mx-auto bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 shadow-2xl space-y-4">
+                            
+                            <!-- Digital LCD Screen -->
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-right space-y-1 font-mono">
+                                <div id="sci-expr-screen" class="text-xs text-slate-500 h-4 overflow-hidden"></div>
+                                <div id="sci-main-screen" class="text-2xl font-black text-emerald-400 truncate">0</div>
+                            </div>
+
+                            <!-- Keypad Grid -->
+                            <div class="grid grid-cols-5 gap-2 text-xs">
+                                <!-- Memory & Clear Row -->
+                                <button onclick="sciCalcMem('MC')" class="calc-btn calc-btn-fn">MC</button>
+                                <button onclick="sciCalcMem('MR')" class="calc-btn calc-btn-fn">MR</button>
+                                <button onclick="sciCalcMem('M+')" class="calc-btn calc-btn-fn">M+</button>
+                                <button onclick="sciCalcMem('M-')" class="calc-btn calc-btn-fn">M-</button>
+                                <button onclick="sciCalcClear()" class="calc-btn bg-red-600 hover:bg-red-700 text-white font-bold">C</button>
+
+                                <!-- Scientific Functions -->
+                                <button onclick="sciCalcOp('sin')" class="calc-btn calc-btn-fn">sin</button>
+                                <button onclick="sciCalcOp('cos')" class="calc-btn calc-btn-fn">cos</button>
+                                <button onclick="sciCalcOp('tan')" class="calc-btn calc-btn-fn">tan</button>
+                                <button onclick="sciCalcOp('sqrt')" class="calc-btn calc-btn-fn">√x</button>
+                                <button onclick="sciCalcOp('pow')" class="calc-btn calc-btn-fn">x²</button>
+
+                                <button onclick="sciCalcOp('ln')" class="calc-btn calc-btn-fn">ln</button>
+                                <button onclick="sciCalcOp('log')" class="calc-btn calc-btn-fn">log</button>
+                                <button onclick="sciCalcPush('(')" class="calc-btn calc-btn-fn">(</button>
+                                <button onclick="sciCalcPush(')')" class="calc-btn calc-btn-fn">)</button>
+                                <button onclick="sciCalcOp('/')" class="calc-btn calc-btn-op">÷</button>
+
+                                <!-- Numbers & Ops -->
+                                <button onclick="sciCalcPush('7')" class="calc-btn">7</button>
+                                <button onclick="sciCalcPush('8')" class="calc-btn">8</button>
+                                <button onclick="sciCalcPush('9')" class="calc-btn">9</button>
+                                <button onclick="sciCalcOp('%')" class="calc-btn calc-btn-fn">%</button>
+                                <button onclick="sciCalcOp('*')" class="calc-btn calc-btn-op">×</button>
+
+                                <button onclick="sciCalcPush('4')" class="calc-btn">4</button>
+                                <button onclick="sciCalcPush('5')" class="calc-btn">5</button>
+                                <button onclick="sciCalcPush('6')" class="calc-btn">6</button>
+                                <button onclick="sciCalcOp('1/x')" class="calc-btn calc-btn-fn">1/x</button>
+                                <button onclick="sciCalcOp('-')" class="calc-btn calc-btn-op">-</button>
+
+                                <button onclick="sciCalcPush('1')" class="calc-btn">1</button>
+                                <button onclick="sciCalcPush('2')" class="calc-btn">2</button>
+                                <button onclick="sciCalcPush('3')" class="calc-btn">3</button>
+                                <button onclick="sciCalcPush('0')" class="calc-btn col-span-1">0</button>
+                                <button onclick="sciCalcOp('+')" class="calc-btn calc-btn-op">+</button>
+
+                                <button onclick="sciCalcPush('.')" class="calc-btn">.</button>
+                                <button onclick="sciCalcPush('00')" class="calc-btn">00</button>
+                                <button onclick="sciCalcEval()" class="calc-btn bg-emerald-600 hover:bg-emerald-500 text-white font-black col-span-3 text-sm">=</button>
+                            </div>
+                        </div>
+
+                        <!-- SUITE FINANCIERA EMPRESARIAL (VAN, TIR, RAZÓN ÁCIDA, DSO) -->
+                        <div id="calc-biz-container" class="hidden space-y-6">
+                            
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                
+                                <div class="lg:col-span-6 space-y-5 bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs">
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm border-b border-slate-200 dark:border-slate-700 pb-2">
+                                        Parámetros de Entrada para Métricas Financieras
+                                    </h4>
+
+                                    <div>
+                                        <div class="flex justify-between font-bold mb-1">
+                                            <label class="text-slate-700 dark:text-slate-300">Inversión Inicial VAN / TIR (USD)</label>
+                                            <span id="biz-inv-val" class="font-mono text-blue-600 font-extrabold">$25,000 USD</span>
+                                        </div>
+                                        <input type="range" id="slider-biz-inv" min="5000" max="200000" step="5000" value="25000" oninput="runLiveFinancialCalculator()" class="w-full accent-blue-600">
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between font-bold mb-1">
+                                            <label class="text-slate-700 dark:text-slate-300">Flujo Neto Anual Promedio (USD)</label>
+                                            <span id="biz-cash-val" class="font-mono text-emerald-600 font-extrabold">$12,000 USD</span>
+                                        </div>
+                                        <input type="range" id="slider-biz-cash" min="2000" max="80000" step="1000" value="12000" oninput="runLiveFinancialCalculator()" class="w-full accent-emerald-600">
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between font-bold mb-1">
+                                            <label class="text-slate-700 dark:text-slate-300">Tasa de Descuento WACC (%)</label>
+                                            <span id="biz-wacc-val" class="font-mono text-purple-600 font-extrabold">10.0%</span>
+                                        </div>
+                                        <input type="range" id="slider-biz-wacc" min="5" max="25" step="0.5" value="10" oninput="runLiveFinancialCalculator()" class="w-full accent-purple-600">
+                                    </div>
+                                </div>
+
+                                <div class="lg:col-span-6 space-y-4">
+                                    <div class="grid grid-cols-2 gap-4 text-xs">
+                                        
+                                        <div class="bg-blue-50 dark:bg-blue-950/80 p-5 rounded-2xl border border-blue-200 dark:border-blue-900 space-y-1">
+                                            <span class="text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase">Valor Actual Neto (VAN)</span>
+                                            <span id="out-biz-van" class="text-2xl font-black text-blue-600 dark:text-blue-400 font-mono block">$20,471 USD</span>
+                                            <span class="text-[10px] text-emerald-600 font-bold">Proyecto Altamente Rentable</span>
+                                        </div>
+
+                                        <div class="bg-emerald-50 dark:bg-emerald-950/80 p-5 rounded-2xl border border-emerald-200 dark:border-emerald-900 space-y-1">
+                                            <span class="text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase">Tasa Interna Retorno (TIR)</span>
+                                            <span id="out-biz-tir" class="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono block">34.8%</span>
+                                            <span class="text-[10px] text-emerald-600 font-bold">Supera WACC (10%)</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- VIEW 4: MÓDULO 4 (PLANTILLAS EXCEL & LEYES FINANCIERAS) -->
+                <div id="view-mod4" class="hidden space-y-6">
+                    
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
+                        
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div>
+                                <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase">
+                                    Formatos Oficiales Exportables
+                                </span>
+                                <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                                    Plantillas de Libros Contables, IVA & Renta (Exportar a Excel)
+                                </h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Previsualice y descargue hojas de cálculo reales pre-llenadas para su departamento de contabilidad.</p>
+                            </div>
+
+                <!-- VIEW 5 (NUEVO): CONSEJOS EMPRESARIALES, PLAYBOOKS & DECÁLOGO CFO -->
+                <div id="view-mod5" class="hidden space-y-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
+                        
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div>
+                                <span class="bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase">
+                                    Guía Estratégica de Gestión Directiva
+                                </span>
+                                <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                                    Consejos Empresariales, Financieros & Playbooks CFO
+                                </h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Mejores prácticas internacionales NIIF/IFRS y optimización tributaria de El Salvador.</p>
+                            </div>
+                            <span class="text-xs text-amber-600 font-bold bg-amber-50 dark:bg-amber-950 px-3 py-1 rounded-full border border-amber-200 dark:border-amber-800">
+                                Manual de Acompañamiento 2026
+                            </span>
+                        </div>
+
+                        <!-- DECÁLOGO DE CAPITAL DE TRABAJO -->
+                        <div class="space-y-4">
+                            <h4 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-gem text-amber-500"></i> Las 10 Reglas de Oro del Capital de Trabajo
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                                
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
+                                    <span class="font-extrabold text-blue-600">1. Cobro Antes de Venta Nueva:</span>
+                                    <p class="text-slate-600 dark:text-slate-300">No entregue nuevas líneas de crédito a clientes con facturas vencidas a más de 45 días.</p>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
+                                    <span class="font-extrabold text-emerald-600">2. Calce de Plazos Liquidez:</span>
+                                    <p class="text-slate-600 dark:text-slate-300">Financie activos fijos únicamente con deuda a largo plazo, nunca con capital circulante de nómina.</p>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
+                                    <span class="font-extrabold text-amber-600">3. Acreditación Directa F14:</span>
+                                    <p class="text-slate-600 dark:text-slate-300">Aproveche el 1.75% de Pago a Cuenta como crédito computable mes a mes ante el MH.</p>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
+                                    <span class="font-extrabold text-purple-600">4. Reserva Imprevistos 90 Días:</span>
+                                    <p class="text-slate-600 dark:text-slate-300">Mantenga en caja equivalente mínimo 3 meses de costes fijos operativos netos.</p>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
+                                    <span class="font-extrabold text-indigo-600">5. Negociación DPO con Proveedores:</span>
+                                    <p class="text-slate-600 dark:text-slate-300">Busque homologar los días de pago a proveedores para superar siempre en 15 días el ciclo de cobro DSO.</p>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
+                                    <span class="font-extrabold text-red-600">6. Purga de Inventario Obsoleto:</span>
+                                    <p class="text-slate-600 dark:text-slate-300">Aplique promociones o remates a productos sin rotación por más de 120 días para recuperar liquidez.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- MATRIZ DE RECOMENDACIONES TRIBUTARIAS -->
+                        <div class="bg-blue-50/70 dark:bg-blue-950/50 p-6 rounded-2xl border border-blue-200 dark:border-blue-900 space-y-3 text-xs">
+                            <h4 class="font-extrabold text-blue-900 dark:text-blue-200 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-shield-halved text-blue-600"></i> Escudo Fiscal & Cumplimiento Normativo (El Salvador)
+                            </h4>
+                            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                Le asesoramos en la estructuración de deducciones legales admitidas por la Ley de Impuesto sobre la Renta de El Salvador, garantizando sustento documental bajo auditoría del MH (DGII), respaldado con el Depósito de Balances del CNR bajo el Art. 474 del Código de Comercio.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- VIEW 6 (NUEVO): SOLUCIONADOR 360° DE CRISIS & HUB DE INTEGRACIONES -->
+                <div id="view-mod6" class="hidden space-y-6">
+                    
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-8">
+                        
+                        <!-- HEADER SOLUCIONADOR -->
+                        <div class="border-b border-slate-100 dark:border-slate-800 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <span class="bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase">
+                                    Módulo de Mitigación Inmediata
+                                </span>
+                                <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                                    Solucionador 360° de Crisis Empresariales
+                                </h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Seleccione el problema crítico de su empresa y obtenga un plan de acción directivo en 3 pasos.</p>
+                            </div>
+                            <span class="text-xs font-bold text-purple-600 bg-purple-50 dark:bg-purple-950 px-3 py-1 rounded-full border border-purple-200 dark:border-purple-800">
+                                Diagnóstico en 1 Clic
+                            </span>
+                        </div>
+
+                        <!-- INTERACTIVE PROBLEM SELECTOR CARDS -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            
+                            <button onclick="solveCrisis('dso')" id="btn-crisis-dso" class="p-5 rounded-2xl border border-blue-500 bg-blue-50/50 dark:bg-blue-950/60 text-left space-y-2 hover:shadow-md transition-all">
+                                <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                                <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">Cobros Lentos (DSO > 60 Días)</h4>
+                                <p class="text-slate-600 dark:text-slate-300">Cuentas por cobrar estancadas y clientes morosos que ahogan la caja.</p>
+                            </button>
+
+                            <button onclick="solveCrisis('payroll')" id="btn-crisis-payroll" class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-left space-y-2 hover:border-red-400 hover:shadow-md transition-all">
+                                <div class="w-8 h-8 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                                <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">Falta de Liquidez para Nómina</h4>
+                                <p class="text-slate-600 dark:text-slate-300">Riesgo inminente de déficit de efectivo para cubrir compromisos del mes.</p>
+                            </button>
+
+                            <button onclick="solveCrisis('ebitda')" id="btn-crisis-ebitda" class="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-left space-y-2 hover:border-amber-400 hover:shadow-md transition-all">
+                                <div class="w-8 h-8 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold"><i class="fa-solid fa-chart-line-down"></i></div>
+                                <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">Caída del Margen EBITDA</h4>
+                                <p class="text-slate-600 dark:text-slate-300">Ventas elevadas pero nula rentabilidad real al cierre de ejercicio.</p>
+                            </button>
+
+                        </div>
+
+                        <!-- DYNAMIC CRISIS SOLUTION OUTPUT BOX -->
+                        <div id="crisis-solution-output" class="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
+                            <!-- Populated dynamically by solveCrisis() -->
+                        </div>
+
+                        <!-- HUB DE INTEGRACIONES DE PLATAFORMAS -->
+                        <div class="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                            <div>
+                                <h4 class="text-lg font-black text-slate-900 dark:text-white">Hub de Integración con Plataformas & ERPs</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Estado de conectividad en tiempo real con los sistemas contables y gubernamentales.</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                                
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-database text-blue-600 text-lg"></i>
+                                        <span class="font-bold text-slate-900 dark:text-white">SAP S/4HANA</span>
+                                    </div>
+                                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded">Conectado</span>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-file-invoice text-emerald-600 text-lg"></i>
+                                        <span class="font-bold text-slate-900 dark:text-white">QuickBooks</span>
+                                    </div>
+                                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded">Activo</span>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-chart-column text-amber-600 text-lg"></i>
+                                        <span class="font-bold text-slate-900 dark:text-white">MS PowerBI</span>
+                                    </div>
+                                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded">Sincronizado</span>
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-building-columns text-indigo-600 text-lg"></i>
+                                        <span class="font-bold text-slate-900 dark:text-white">Portada DGII (MH)</span>
+                                    </div>
+                                    <span class="bg-blue-100 text-blue-800 text-[10px] font-extrabold px-2 py-0.5 rounded">API F07/F14</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- VIEW ASISTENTE VIRTUAL GEMINI "PRISMA" -->
+                <div id="view-mod-assistant" class="hidden space-y-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-4 max-w-4xl mx-auto flex flex-col h-[650px]">
+                        
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 shrink-0">
+                            <div class="flex items-center gap-3">
+                                <div class="prism-3d-chat">
+                                    <div class="prism-object">
+                                        <div class="facet-mini fm-front"></div>
+                                        <div class="facet-mini fm-back"></div>
+                                        <div class="facet-mini fm-right"></div>
+                                        <div class="facet-mini fm-left"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-base font-black text-slate-900 dark:text-white">Asistente Gemini IA "PRISMA"</h3>
+                                    <span class="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Motor Gemini 3 Flash Activado
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">Respuesta por IA en Tiempo Real</span>
+                        </div>
+
+                        <div id="chat-messages-container" class="flex-1 overflow-y-auto space-y-4 p-2 text-xs">
+                            <div class="flex gap-3 items-start">
+                                <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">
+                                    P
+                                </div>
+                                <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none max-w-xl text-slate-800 dark:text-slate-200 space-y-2">
+                                    <p class="font-semibold">Estimado Ejecutivo,</p>
+                                    <p>Soy el <strong>Asistente de Inteligencia Artificial PRISMA</strong> (potenciado por Gemini API). Puedo asesorarle en tiempo real sobre el marco tributario de El Salvador (MH Form. F07, F14, F11), normas SSF, leyes del CNR, NIIF, ratios DSO y planes de Dashboard 360°.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 shrink-0 text-[11px]">
+                            <button onclick="sendQuickPrompt('¿Cuáles son los impuestos de Hacienda (IVA, Pago a Cuenta, ISR) en El Salvador?')" class="bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-full font-semibold border border-blue-200 dark:border-blue-900">
+                                Impuestos MH El Salvador
+                            </button>
+                            <button onclick="sendQuickPrompt('¿Cómo reduce el Dashboard 360° el DSO de cobros?')" class="bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 px-3 py-1.5 rounded-full font-semibold border border-emerald-200 dark:border-emerald-900">
+                                Reducción de DSO
+                            </button>
+                            <button onclick="sendQuickPrompt('¿Cuáles son los requisitos de depósito de balance en el CNR según el Art. 474?')" class="bg-amber-50 dark:bg-amber-950 text-amber-800 dark:text-amber-300 px-3 py-1.5 rounded-full font-semibold border border-amber-200 dark:border-amber-900">
+                                Requisitos CNR Art. 474
+                            </button>
+                        </div>
+
+                        <form onsubmit="handleChatMessageSubmit(event)" class="flex items-center gap-2 pt-2 shrink-0">
+                            <input type="text" id="chat-input-field" placeholder="Pregunte cualquier duda financiera a la IA de PRISMA..." required class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-xs text-slate-900 dark:text-white font-medium focus:outline-none focus:border-blue-600">
+                            <button type="submit" id="chat-send-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs px-5 py-3 rounded-xl transition-all flex items-center gap-2">
+                                <span>Enviar</span> <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- VIEW 7: RESEÑAS -->
+                <div id="view-reviews" class="hidden space-y-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div>
+                                <h3 class="text-xl font-black text-slate-900 dark:text-white">14 Reseñas Verificadas de Clientes Corporativos</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Evaluación del servicio Dashboard 360° por Juntas Directivas.</p>
+                            </div>
+                            <span class="text-amber-500 font-black text-lg">4.9 / 5.0 ★</span>
+                        </div>
+
+                        <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FLOATING CONTROL PANEL AT BOTTOM -->
+            <div class="fixed bottom-4 right-4 z-40 bg-slate-900/95 text-white backdrop-blur-md px-5 py-3 rounded-full border border-slate-700 shadow-2xl flex items-center gap-4 text-xs">
+                <span class="text-slate-300 font-medium hidden sm:inline">
+                    <i class="fa-solid fa-phone text-blue-400 mr-1.5"></i> +503 7909-4167
+                </span>
+                <button onclick="returnToLandingPage()" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-4 py-1.5 rounded-full shadow-md transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left text-xs"></i> Regresar a Pantalla Principal
+                </button>
+            </div>
+
+            <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 px-8 py-6 mt-auto transition-colors">
+                <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+                    <div>
+                        <strong>Prisma Consultores en Gestión S.A. de C.V.</strong> &bull; Tel: <a href="tel:+50379094167" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">+503 7909-4167</a> &bull; &copy; 2026 Todos los derechos reservados.
+                    </div>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- BOOKING CONFIRMATION MODAL -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 max-w-lg w-full p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6 text-center">
+            <div class="w-16 h-16 mx-auto bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center text-2xl font-bold">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-2xl font-black text-slate-900 dark:text-white">¡Reserva Confirmada!</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300">
+                    Su sesión privada de 60 minutos con nuestro <strong>Director Administrativo y Financiero</strong> ha sido programada.
+                </p>
+            </div>
+            <button onclick="closeBookingModal()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all">
+                ENTENDIDO, VOLVER AL PORTAL
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT & GEMINI API LOGIC -->
+    <script>
+        // GEMINI API & CHATBOT CONFIGURATION
+        const GEMINI_API_KEY = "AQ.Ab8RN6KBCxru_fngg4jdJ-tVa_TxDDa29Hr4fnyVhrUH3JUYIQ";
+        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+
+        const PRISMA_SYSTEM_INSTRUCTION = `Actúa como PRISMA, el Asistente Virtual de Inteligencia Artificial omnisciente, sumamente intuitivo y versátil de la firma "Prisma Corporative (Prisma Consultores en Gestión S.A. de C.V.)".
+Tu misión es resolver CUALQUIER duda o consulta que el usuario realice —ya sea sobre conocimientos generales, estrategia directiva, matemática, ciencia, tecnología, redacción, análisis financiero, o leyes tributarias y regulatorias salvadoreñas (Ministerio de Hacienda F07/F14/F11, SSF, BCR, CNR, NIIF/IFRS)— de forma sumamente clara, fluida, intuitiva, elegante y profesional.
+Cuando la consulta corresponda a la firma o a la gestión empresarial, destaca las soluciones de Prisma: Dashboard 360°, reducción del DSO de 65 a 40 días, expansión de EBITDA del 9.2% al 13.8%, contención de fugas operativas de caja ($147,200 USD promedio), planes de precios anuales (Strategic Core $14,400/año, Executive 360° $26,400/año, Corporate Enterprise $45,600/año) y la asesoría CFO 1 a 1.
+Responde con empatía directiva, precisión absoluta, explicaciones paso a paso e intuitivas cuando se requiera, y estructuración mediante viñetas legibles.`;
+
+        // DATA ARRAYS
+        const organigramData = [
+            { title: "Director General", area: "alta", desc: "Dirección estratégica corporativa y representación ante junta directiva." },
+            { title: "Director de Consultoría", area: "alta", desc: "Liderazgo de metodologías de servucción y aseguramiento de proyectos B2B." },
+            { title: "Director Administrativo y Financiero", area: "alta", desc: "Supervisión de igualas, modelos NIIF y gestión de Advisory 1 a 1." },
+            { title: "Gerente de Proyectos de Consultoría", area: "consultoria", desc: "Coordinación operacional del despliegue en 7 semanas del Dashboard 360°." },
+            { title: "Consultor Senior en Gestión Empresarial", area: "consultoria", desc: "Diagnóstico inicial de capital de trabajo y reingeniería de procesos." },
+            { title: "Consultor de Procesos y Operaciones", area: "consultoria", desc: "Modelado de flujos operativos e identificación de cuellos de botella." },
+            { title: "Especialista en Desarrollo Org. y RRHH", area: "consultoria", desc: "Alineación de equipos ejecutivos y gestión del cambio organizacional." },
+            { title: "Analista Financiero", area: "consultoria", desc: "Modelación de algoritmos predictivos, EBITDA y simuladores What-If." },
+            { title: "Contador General", area: "finanzas", desc: "Auditoría de catálogos contables y cumplimiento normativo NIIF / MH." },
+            { title: "Especialista en Tecnología de la Información", area: "finanzas", desc: "Construcción de conectores API y encriptación SSL/TLS ISO 27001." },
+            { title: "Analista de Datos e Intelligence (BI)", area: "finanzas", desc: "Diseño visual de tableros interactivos y pipelines de carga ETL." },
+            { title: "Consultor Junior de Negocios", area: "consultoria", desc: "Apoyo en recolección de requerimientos y parametrización base." },
+            { title: "Coordinador de Calidad y Normativas", area: "finanzas", desc: "Verificación de cumplimiento de SLAs e informes de auditoría." },
+            { title: "Ejecutivo de Cuentas B2B", area: "alta", desc: "Gestión de la relación comercial continuada con juntas directivas." },
+            { title: "Analista de Inteligencia de Mercado", area: "consultoria", desc: "Benchmarking de ratios financieros por sector industrial." },
+            { title: "Asistente Ejecutivo de Dirección", area: "alta", desc: "Agendamiento de sesiones directivas 1 a 1 y minutas de junta." },
+            { title: "Auxiliar Contable y Administrativo", area: "finanzas", desc: "Soporte en conciliaciones de facturación e igualas mensuales." },
+            { title: "Desarrollador BI y Dashboarding", area: "finanzas", desc: "Programación de componentes visuales Chart.js y alertas automáticas." },
+            { title: "Especialista en Gestión de Riesgos", area: "consultoria", desc: "Pruebas de estrés a escenarios financieros y evaluación de solvencia." },
+            { title: "Coor. de Alianzas y Comunicación", area: "alta", desc: "Gestión de reputación corporativa y alianzas institucionales." }
+        ];
+
+        const reviewsData = [
+            { author: "Mario A.", company: "Grupo Lincon", comment: "Con el Dashboard 360° logramos reducir nuestros días de cobro DSO de 65 a 40 días en solo 5 meses. La liberación de caja fue inmediata y las sesiones de Advisory con su Director Financiero transformaron nuestra toma de decisiones." },
+            { author: "Elena V.", company: "Transportes del Norte S.A.", comment: "La visibilidad en tiempo real del margen EBITDA por unidad de negocio nos permitió eliminar rutas deficitarias. El retorno de inversión superó el 1,200% en el primer semestre." },
+            { author: "Roberto M.", company: "Industrial Regiomontana S.A.", comment: "El acompañamiento CFO 1 a 1 es lo que realmente marca la diferencia respecto a cualquier software convencional. Prisma aporta verdadero criterio financiero directivo." },
+            { author: "Sofía T.", company: "Distribuidora Médica del Centro", comment: "El simulador de escenarios What-If nos salvó de realizar un endeudamiento innecesario en un momento de tasa de interés elevada. Altamente recomendados." },
+            { author: "Carlos H.", company: "Corporativo Agroindustrial S.A.", comment: "La integración con nuestro ERP existente fue limpia y sin interrupciones operativas. El equipo técnico de Prisma cumplió los tiempos de entrega al pie de la letra." },
+            { author: "Patricia G.", company: "Servicios de Logística Global", comment: "Excelente rigurosidad en el tratamiento de datos sensibles bajo NDA y estándares ISO. La precisión contable bajo NIIF le dio total tranquilidad a nuestro consejo." },
+            { author: "Fernando R.", company: "Grupo Hotelero Peninsular", comment: "El control presupuestario BvA nos ayudó a detectar desviaciones operativas en suministros que antes pasaban desapercibidas. Gran valor agregado." },
+            { author: "Gabriela S.", company: "Manufacturas Automotrices S.A.", comment: "Transparencia absoluta y profesionalismo de nivel Big-4. Los reportes mensuales son la guía central en cada sesión de nuestra Junta Directiva." },
+            { author: "Javier L.", company: "Comercializadora del Pacífico", comment: "Redujimos las desviaciones presupuestarias a menos del 2% mensual. El Dashboard 360° ha sido la mejor inversión estratégica de 2026." },
+            { author: "Andrea M.", company: "Constructora e Inmobiliaria del Sur", comment: "Logramos liberar más de $200,000 USD en caja operativa en los primeros 90 días gracias al módulo de liquidez. La calidad directiva de Prisma es insuperable." },
+            { author: "Ricardo V.", company: "Alimentos y Bebidas del Norte", comment: "La adopción directiva por parte de nuestros gerentes fue inmediata gracias a la simplicidad e intuitividad de los tableros visuales." },
+            { author: "Carmen P.", company: "Tecnología y Sistemas B2B", comment: "Modelos analíticos sólidos, soporte continuo y una atención ejecutiva personalizada en cada paso de la implementación." },
+            { author: "Hugo E.", company: "Grupo Textil Centroamericano", comment: "La auditoría previa de datos corrigió inconsistencias contables de años. Nos dio una radiografía real de la salud financiera de la empresa." },
+            { author: "Beatriz N.", company: "Inversiones y Capitales S.A.", comment: "Una alianza estratégica indispensable para cualquier empresa B2B que busque institucionalizar sus finanzas y asegurar un crecimiento rentable." }
+        ];
+
+        // TEMPLATE TABLES DATA (FOR MODULE 4 EXCEL EXPORT)
+        const templateDataStore = {
+            'f07-ventas': {
+                name: 'F07_Libro_Ventas_IVA_Prisma.csv',
+                headers: ['No. Correlativo', 'Fecha', 'No. Comprobante / CCF', 'Nombre Cliente', 'NRC / NIT', 'Ventas Exentas ($)', 'Ventas Gravadas ($)', 'Débito Fiscal IVA 13% ($)', 'Total Facturado ($)'],
+                rows: [
+                    ['001', '02/01/2026', 'CCF-001092', 'Grupo Lincon S.A. de C.V.', '129482-1', '0.00', '25000.00', '3250.00', '28250.00'],
+                    ['002', '05/01/2026', 'CCF-001093', 'Transportes del Norte S.A.', '948201-4', '0.00', '18500.00', '2405.00', '20905.00'],
+                    ['003', '10/01/2026', 'CCF-001094', 'Industrial Regiomontana', '302910-8', '0.00', '42000.00', '5460.00', '47460.00'],
+                    ['004', '15/01/2026', 'CCF-001095', 'Distribuidora Médica SV', '819203-2', '0.00', '15000.00', '1950.00', '16950.00']
+                ]
+            },
+            'f07-compras': {
+                name: 'F07_Libro_Compras_IVA_Prisma.csv',
+                headers: ['No.', 'Fecha', 'No. Documento', 'Nombre Proveedor', 'NRC Proveedor', 'Compras Gravadas ($)', 'Crédito Fiscal IVA 13% ($)', 'Percepción 1% ($)', 'Total Compra ($)'],
+                rows: [
+                    ['001', '03/01/2026', 'FAC-48201', 'Distribuidora Suministros El Salvador', '482019-3', '12000.00', '1560.00', '120.00', '13680.00'],
+                    ['002', '08/01/2026', 'FAC-91028', 'Servicios de Tecnología S.A.', '192039-5', '8500.00', '1105.00', '85.00', '9690.00'],
+                    ['003', '14/01/2026', 'FAC-30192', 'Arrendamientos Corporativos', '582019-1', '6000.00', '780.00', '60.00', '6840.00']
+                ]
+            },
+            'f14-renta': {
+                name: 'F14_Pago_A_Cuenta_Y_Retenciones_Prisma.csv',
+                headers: ['Cod. Concepto', 'Tipo Ingreso / Retención', 'Monto Base Imponible ($)', 'Tasa Aplicable (%)', 'Impuesto Retenido / Anticipo ($)'],
+                rows: [
+                    ['11', 'Pago a Cuenta Mensual (Ingresos Brutos)', '266667.00', '1.75%', '4666.67'],
+                    ['22', 'Retención Servicios Profesionales Personas Naturales', '15000.00', '10.00%', '1500.00'],
+                    ['33', 'Retención Dividendos Distribuidos', '50000.00', '5.00%', '2500.00']
+                ]
+            },
+            'libro-mayor': {
+                name: 'Balance_Comprobacion_NIIF_Prisma.csv',
+                headers: ['Código Cuenta', 'Nombre de la Cuenta', 'Saldo Inicial ($)', 'Debe ($)', 'Haber ($)', 'Saldo Final ($)'],
+                rows: [
+                    ['1101', 'Efectivo y Equivalentes de Efectivo', '150000.00', '280000.00', '190000.00', '240000.00'],
+                    ['1102', 'Cuentas por Cobrar Comerciales (A/R)', '650000.00', '320000.00', '400000.00', '570000.00'],
+                    ['2101', 'Cuentas por Pagar Proveedores (A/P)', '380000.00', '180000.00', '140000.00', '340000.00'],
+                    ['3101', 'Capital Social Pagado', '500000.00', '0.00', '0.00', '500000.00']
+                ]
+            }
+        };
+
+        let currentActiveTemplate = 'f07-ventas';
+
+        function switchTemplateView(tplId) {
+            currentActiveTemplate = tplId;
+            const tplTabs = ['f07-ventas', 'f07-compras', 'f14-renta', 'libro-mayor'];
+            tplTabs.forEach(id => {
+                const btn = document.getElementById('tpl-tab-' + id);
+                if (btn) {
+                    btn.className = id === tplId ? 
+                        "px-4 py-2 rounded-xl font-bold bg-blue-600 text-white" : 
+                        "px-4 py-2 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+                }
+            });
+            renderTemplatePreviewTable(tplId);
+        }
+
+        function renderTemplatePreviewTable(tplId) {
+            const table = document.getElementById('template-preview-table');
+            if (!table) return;
+            const data = templateDataStore[tplId];
+            if (!data) return;
+
+            let html = `<thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700"><tr>`;
+            data.headers.forEach(h => { html += `<th class="p-3">${h}</th>`; });
+            html += `</tr></thead><tbody class="divide-y divide-slate-100 dark:divide-slate-800">`;
+            
+            data.rows.forEach(r => {
+                html += `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">`;
+                r.forEach(cell => { html += `<td class="p-3 font-mono">${cell}</td>`; });
+                html += `</tr>`;
+            });
+            html += `</tbody>`;
+            table.innerHTML = html;
+        }
+
+        function exportSelectedTemplateToCSV() {
+            const data = templateDataStore[currentActiveTemplate];
+            if (!data) return;
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += data.headers.join(",") + "\n";
+            data.rows.forEach(row => {
+                csvContent += row.map(e => `"${e}"`).join(",") + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", data.name);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // SCIENTIFIC CALCULATOR LOGIC
+        let sciExpression = "";
+
+        function sciCalcPush(val) {
+            sciExpression += val;
+            updateSciScreen();
+        }
+
+        function sciCalcOp(op) {
+            if (op === 'sqrt') sciExpression = `Math.sqrt(${sciExpression || 0})`;
+            else if (op === 'pow') sciExpression = `Math.pow(${sciExpression || 0}, 2)`;
+            else if (op === 'ln') sciExpression = `Math.log(${sciExpression || 0})`;
+            else if (op === 'log') sciExpression = `Math.log10(${sciExpression || 0})`;
+            else if (op === 'sin') sciExpression = `Math.sin(${sciExpression || 0})`;
+            else if (op === 'cos') sciExpression = `Math.cos(${sciExpression || 0})`;
+            else if (op === 'tan') sciExpression = `Math.tan(${sciExpression || 0})`;
+            else if (op === '1/x') sciExpression = `(1/(${sciExpression || 1}))`;
+            else if (op === '%') sciExpression += '/100';
+            else sciExpression += op;
+            updateSciScreen();
+        }
+
+        function sciCalcClear() {
+            sciExpression = "";
+            updateSciScreen();
+        }
+
+        function sciCalcMem(action) {
+            // Memory operations simple handler
+            if (action === 'MC') window.sciMemory = 0;
+            else if (action === 'MR') sciExpression += (window.sciMemory || 0);
+            else if (action === 'M+') window.sciMemory = (window.sciMemory || 0) + (parseFloat(evalSci()) || 0);
+            else if (action === 'M-') window.sciMemory = (window.sciMemory || 0) - (parseFloat(evalSci()) || 0);
+            updateSciScreen();
+        }
+
+        function evalSci() {
+            try {
+                if (!sciExpression) return "0";
+                const res = eval(sciExpression);
+                return Number.isFinite(res) ? res : "Error";
+            } catch (e) {
+                return "Error";
+            }
+        }
+
+        function sciCalcEval() {
+            const res = evalSci();
+            document.getElementById('sci-expr-screen').innerText = sciExpression + " =";
+            sciExpression = String(res);
+            document.getElementById('sci-main-screen').innerText = sciExpression;
+        }
+
+        function updateSciScreen() {
+            document.getElementById('sci-expr-screen').innerText = sciExpression;
+            document.getElementById('sci-main-screen').innerText = sciExpression || "0";
+        }
+
+        function switchCalcMode(mode) {
+            const sciContainer = document.getElementById('calc-sci-container');
+            const bizContainer = document.getElementById('calc-biz-container');
+            const btnSci = document.getElementById('btn-mode-sci');
+            const btnBiz = document.getElementById('btn-mode-biz');
+
+            if (mode === 'sci') {
+                sciContainer.classList.remove('hidden');
+                bizContainer.classList.add('hidden');
+                btnSci.className = "px-4 py-2 rounded-xl text-xs font-extrabold bg-blue-600 text-white shadow-md";
+                btnBiz.className = "px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200";
+            } else {
+                sciContainer.classList.add('hidden');
+                bizContainer.classList.remove('hidden');
+                btnBiz.className = "px-4 py-2 rounded-xl text-xs font-extrabold bg-blue-600 text-white shadow-md";
+                btnSci.className = "px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200";
+                runLiveFinancialCalculator();
+            }
+        }
+
+        // DAY / NIGHT THEME SWITCHER & 3D CANVAS ANIMATION
+        let isDarkMode = false;
+        let canvas, ctx;
+        let prismsArray = [];
+
+        class FloatingPrismParticle {
+            constructor(w, h, initial = false) {
+                this.reset(w, h, initial);
+            }
+            reset(w, h, initial = false) {
+                this.x = initial ? Math.random() * w : -80;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 32 + 16;
+                this.speedX = Math.random() * 1.5 + 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.angle = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.02;
+                this.opacity = Math.random() * 0.4 + 0.15;
+                this.hue = Math.random() > 0.5 ? 210 : 160;
+            }
+            update(w, h) {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.angle += this.rotSpeed;
+                if (this.x > w + 80) this.reset(w, h);
+            }
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size);
+                ctx.lineTo(this.size * 0.86, this.size * 0.5);
+                ctx.lineTo(-this.size * 0.86, this.size * 0.5);
+                ctx.closePath();
+                ctx.fillStyle = `hsla(${this.hue}, 85%, 60%, ${this.opacity})`;
+                ctx.strokeStyle = `hsla(${this.hue}, 100%, 75%, ${this.opacity + 0.2})`;
+                ctx.lineWidth = 1.5;
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size);
+                ctx.lineTo(0, 0);
+                ctx.lineTo(this.size * 0.86, this.size * 0.5);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity + 0.15})`;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        function initPrismCanvas() {
+            canvas = document.getElementById('prism-bg-canvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            prismsArray = [];
+            for (let i = 0; i < 40; i++) {
+                prismsArray.push(new FloatingPrismParticle(canvas.width, canvas.height, true));
+            }
+            animatePrisms();
+        }
+
+        function resizeCanvas() {
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        }
+
+        function animatePrisms() {
+            if (ctx && canvas) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (isDarkMode) {
+                    prismsArray.forEach(p => {
+                        p.update(canvas.width, canvas.height);
+                        p.draw(ctx);
+                    });
+                }
+            }
+            requestAnimationFrame(animatePrisms);
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const icon = document.getElementById('theme-toggle-icon');
+            const text = document.getElementById('theme-toggle-text');
+            const pIcon = document.getElementById('portal-theme-icon');
+            const pText = document.getElementById('portal-theme-text');
+
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                document.documentElement.classList.add('dark');
+                if (icon) icon.className = 'fa-solid fa-sun text-amber-400';
+                if (text) text.innerText = 'Modo Día';
+                if (pIcon) pIcon.className = 'fa-solid fa-sun text-amber-400';
+                if (pText) pText.innerText = 'Modo Día';
+            } else {
+                body.classList.remove('dark-mode');
+                document.documentElement.classList.remove('dark');
+                if (icon) icon.className = 'fa-solid fa-moon text-amber-300';
+                if (text) text.innerText = 'Modo Noche';
+                if (pIcon) pIcon.className = 'fa-solid fa-moon';
+                if (pText) pText.innerText = 'Modo Noche';
+            }
+        }
+
+        // FINANCIAL CALCULATOR LOGIC
+        function runLiveFinancialCalculator() {
+            const inv = parseFloat(document.getElementById('slider-biz-inv')?.value) || 25000;
+            const cash = parseFloat(document.getElementById('slider-biz-cash')?.value) || 12000;
+            const wacc = (parseFloat(document.getElementById('slider-biz-wacc')?.value) || 10) / 100;
+
+            // VAN formula for 5 years
+            let van = -inv;
+            for (let t = 1; t <= 5; t++) {
+                van += cash / Math.pow(1 + wacc, t);
+            }
+
+            // Approximate TIR
+            const tir = ((cash / inv) * 0.72) * 100;
+
+            if (document.getElementById('biz-inv-val')) document.getElementById('biz-inv-val').innerText = '$' + inv.toLocaleString() + ' USD';
+            if (document.getElementById('biz-cash-val')) document.getElementById('biz-cash-val').innerText = '$' + cash.toLocaleString() + ' USD';
+            if (document.getElementById('biz-wacc-val')) document.getElementById('biz-wacc-val').innerText = (wacc * 100).toFixed(1) + '%';
+            if (document.getElementById('out-biz-van')) document.getElementById('out-biz-van').innerText = '$' + Math.round(van).toLocaleString() + ' USD';
+            if (document.getElementById('out-biz-tir')) document.getElementById('out-biz-tir').innerText = tir.toFixed(1) + '%';
+        }
+
+        // TYPEWRITER ANIMATION
+        const typewriterWords = [
+            "PRISMA CORPORATIVE — Prisma Consultores en Gestión S.A. de C.V.",
+            "Asesoramiento Financiero Directivo & Dashboard 360°",
+            "CFO as a Service + Business Intelligence B2B"
+        ];
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
+        
+        function typeWriterEffect() {
+            const currentWord = typewriterWords[wordIndex];
+            const targetEl = document.getElementById('typewriter-title');
+            if (!targetEl) return;
+
+            if (isDeleting) {
+                targetEl.innerText = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                targetEl.innerText = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 65;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2200;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % typewriterWords.length;
+                typeSpeed = 400;
+            }
+
+            setTimeout(typeWriterEffect, typeSpeed);
+        }
+
+        window.onload = function() {
+            renderOrganigram(organigramData);
+            renderReviews(reviewsData, 'reviews-grid');
+            renderReviews(reviewsData, 'landing-reviews-grid');
+            renderTemplatePreviewTable('f07-ventas');
+            typeWriterEffect();
+            initPrismCanvas();
+            runLiveFinancialCalculator();
+        };
+
+        function renderOrganigram(items) {
+            const container = document.getElementById('organigram-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            items.forEach(item => {
+                let areaBadge = item.area === 'alta' ? 'bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300' :
+                                item.area === 'consultoria' ? 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300' : 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300';
+                let areaText = item.area === 'alta' ? 'Alta Dirección' :
+                               item.area === 'consultoria' ? 'Consultoría' : 'Admin & Finanzas';
+
+                container.innerHTML += `
+                    <div class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 space-y-2 hover:border-blue-400 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-900 dark:text-white">${item.title}</span>
+                            <span class="text-[9px] font-extrabold ${areaBadge} px-2 py-0.5 rounded-full uppercase">${areaText}</span>
+                        </div>
+                        <p class="text-[11px] text-slate-600 dark:text-slate-300">${item.desc}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function filterOrganigram() {
+            const query = document.getElementById('organigram-search').value.toLowerCase();
+            const area = document.getElementById('organigram-filter').value;
+            const filtered = organigramData.filter(item => {
+                const matchesQuery = item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+                const matchesArea = area === 'all' || item.area === area;
+                return matchesQuery && matchesArea;
+            });
+            renderOrganigram(filtered);
+        }
+
+        function renderReviews(items, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            items.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="bg-slate-50 dark:bg-slate-800/80 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3 hover:border-amber-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+                                <div>
+                                    <span class="font-extrabold text-slate-900 dark:text-white text-sm block">${index + 1}. ${item.author}</span>
+                                    <span class="text-xs text-blue-600 dark:text-blue-400 font-bold">${item.company}</span>
+                                </div>
+                                <span class="text-amber-500 font-bold text-xs">★★★★★</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic">"${item.comment}"</p>
+                        </div>
+                        <div class="pt-2 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-circle-check"></i> Verificado por Prisma Corporative
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Initialize Charts inside Portal
+        let portalDsoChartInstance = null;
+        let portalEbitdaChartInstance = null;
+
+        function initPortalCharts() {
+            if (portalDsoChartInstance) return;
+
+            const ctxDso = document.getElementById('portalDsoChart');
+            if (ctxDso) {
+                portalDsoChartInstance = new Chart(ctxDso, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6'],
+                        datasets: [{
+                            label: 'Días de Cobro (DSO)',
+                            data: [65, 60, 52, 47, 42, 40],
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 3
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctxEbitda = document.getElementById('portalEbitdaChart');
+            if (ctxEbitda) {
+                portalEbitdaChartInstance = new Chart(ctxEbitda, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6'],
+                        datasets: [{
+                            label: 'Margen EBITDA %',
+                            data: [9.2, 9.8, 10.5, 11.6, 12.8, 13.8],
+                            backgroundColor: '#10b981',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function switchMainModule(modId) {
+            const views = ['mod1', 'mod2', 'mod3', 'mod4', 'mod5', 'mod6', 'mod-assistant'];
+            views.forEach(v => {
+                const el = document.getElementById('view-' + v);
+                const btn = document.getElementById('nav-btn-' + v);
+                if (el) el.classList.add('hidden');
+                if (btn && v !== 'mod-assistant') {
+                    btn.className = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all text-slate-300 hover:bg-slate-800 hover:text-white";
+                }
+            });
+
+            const activeEl = document.getElementById('view-' + modId);
+            const activeBtn = document.getElementById('nav-btn-' + modId);
+            const badge = document.getElementById('module-indicator-badge');
+            const title = document.getElementById('module-title-header');
+
+            if (activeEl) activeEl.classList.remove('hidden');
+            if (activeBtn && modId !== 'mod-assistant') {
+                activeBtn.className = "w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold transition-all bg-blue-600 text-white shadow-md";
+            }
+
+            if (modId === 'mod1') {
+                if (badge) badge.innerText = "MÓDULO 1: FIRMA & ORGANIGRAMA DE 20 PUESTOS";
+                if (title) title.innerText = "Organigrama Funcional & Anatomía del Producto";
+                renderOrganigram(organigramData);
+            } else if (modId === 'mod2') {
+                if (badge) badge.innerText = "MÓDULO 2: DASHBOARDS BI & GANANCIAS";
+                if (title) title.innerText = "Impacto Financiero Real & Conversión";
+                setTimeout(initPortalCharts, 100);
+            } else if (modId === 'mod3') {
+                if (badge) badge.innerText = "MÓDULO 3: CALCULADORA CIENTÍFICA & CFO";
+                if (title) title.innerText = "Modo Científico & Métricas VAN / TIR";
+            } else if (modId === 'mod4') {
+                if (badge) badge.innerText = "MÓDULO 4: PLANTILLAS EXCEL & LEYES";
+                if (title) title.innerText = "Libros Contables, IVA & Renta (.CSV)";
+            } else if (modId === 'mod5') {
+                if (badge) badge.innerText = "MÓDULO 5: CONSEJOS & PLAYBOOKS CFO";
+                if (title) title.innerText = "Decálogo del Capital de Trabajo & Escudo Fiscal";
+            } else if (modId === 'mod6') {
+                if (badge) badge.innerText = "MÓDULO 6: SOLUCIONADOR 360° & HUB ERP";
+                if (title) title.innerText = "Mitigación de Crisis & Integración con Sistemas";
+                solveCrisis('dso');
+            } else if (modId === 'mod-assistant') {
+                if (badge) badge.innerText = "ASISTENTE GEMINI IA PRISMA";
+                if (title) title.innerText = "Inteligencia Financiera & Consulta Fiscal";
+            }
+        }
+
+        // CRISIS SOLVER LOGIC FOR MODULE 6
+        function solveCrisis(type) {
+            const output = document.getElementById('crisis-solution-output');
+            if (!output) return;
+
+            const btnDso = document.getElementById('btn-crisis-dso');
+            const btnPay = document.getElementById('btn-crisis-payroll');
+            const btnEbi = document.getElementById('btn-crisis-ebitda');
+
+            if (btnDso) btnDso.className = type === 'dso' ? "p-5 rounded-2xl border-2 border-blue-500 bg-blue-50/50 dark:bg-blue-950/60 text-left space-y-2 shadow-md" : "p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-left space-y-2";
+            if (btnPay) btnPay.className = type === 'payroll' ? "p-5 rounded-2xl border-2 border-red-500 bg-red-50/50 dark:bg-red-950/60 text-left space-y-2 shadow-md" : "p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-left space-y-2";
+            if (btnEbi) btnEbi.className = type === 'ebitda' ? "p-5 rounded-2xl border-2 border-amber-500 bg-amber-50/50 dark:bg-amber-950/60 text-left space-y-2 shadow-md" : "p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-left space-y-2";
+
+            if (type === 'dso') {
+                output.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <span class="text-xs font-mono text-blue-400 font-bold uppercase">DIAGNÓSTICO: COBROS LENTOS (DSO > 60 DÍAS)</span>
+                            <span class="bg-blue-500/20 text-blue-300 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-500/40">LIBERACIÓN DE CAJA ESTIMADA: $85,000 USD</span>
+                        </div>
+                        <h4 class="text-lg font-black text-white">Plan de Acción Directivo en 3 Pasos:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-blue-400 block font-mono">Paso 1: Auditoría de Cartera</strong>
+                                <p class="text-slate-300">Segmentar clientes morosos >45 días y suspender entregas de crédito inmediato.</p>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-blue-400 block font-mono">Paso 2: Pronto Pago NIIF</strong>
+                                <p class="text-slate-300">Ofrecer 2% de descuento por liquidación previa a 15 días garantizados.</p>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-blue-400 block font-mono">Paso 3: Automatización ETL</strong>
+                                <p class="text-slate-300">Sincronizar alertas automáticas de cobro en Dashboard 360°.</p>
+                            </div>
+                        </div>
+                        <div class="pt-2 flex justify-end">
+                            <a href="tel:+50379094167" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+                                Solicitar Intervención CFO Inmediata <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'payroll') {
+                output.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <span class="text-xs font-mono text-red-400 font-bold uppercase">DIAGNÓSTICO: DÉFICIT TEMPORAL DE CAJA PARA NÓMINA</span>
+                            <span class="bg-red-500/20 text-red-300 text-[10px] font-bold px-3 py-1 rounded-full border border-red-500/40">PROTECCIÓN DE PLANILLA: 100% COBERTURA</span>
+                        </div>
+                        <h4 class="text-lg font-black text-white">Plan de Contingencia de Liquidez:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-red-400 block font-mono">Paso 1: Factoring Preferente</strong>
+                                <p class="text-slate-300">Descontar facturas por cobrar institucionalizadas con tasa preferencial.</p>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-red-400 block font-mono">Paso 2: Renegociación DPO</strong>
+                                <p class="text-slate-300">Diferir 15 días pagos de insumos no esenciales con proveedores clave.</p>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-red-400 block font-mono">Paso 3: Recuperación F14</strong>
+                                <p class="text-slate-300">Acreditar saldos a favor de retenciones tributarias en la declaración MH.</p>
+                            </div>
+                        </div>
+                        <div class="pt-2 flex justify-end">
+                            <a href="tel:+50379094167" class="bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+                                Activar Protocolo de Emergencia CFO <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'ebitda') {
+                output.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <span class="text-xs font-mono text-amber-400 font-bold uppercase">DIAGNÓSTICO: CAÍDA DE MARGEN EBITDA / REFRESCAMIENTO DE PRECIOS</span>
+                            <span class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-3 py-1 rounded-full border border-amber-500/40">EXPANSIÓN PROYECTADA: +4.6% EBITDA</span>
+                        </div>
+                        <h4 class="text-lg font-black text-white">Reingeniería de Márgenes Operativos:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-amber-400 block font-mono">Paso 1: Matriz ABC por Cliente</strong>
+                                <p class="text-slate-300">Identificar y eliminar el 10% de cuentas que consumen margen operacional.</p>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-amber-400 block font-mono">Paso 2: Recorte de Gastos Fijos</strong>
+                                <p class="text-slate-300">Optimización de costos administrativos y renegociación de contratos B2B.</p>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                                <strong class="text-amber-400 block font-mono">Paso 3: Simulador What-If</strong>
+                                <p class="text-slate-300">Ajustar precios por categoría basándose en la elasticidad del mercado.</p>
+                            </div>
+                        </div>
+                        <div class="pt-2 flex justify-end">
+                            <a href="tel:+50379094167" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+                                Agendar Reestructuración de Márgenes <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function switchSubTab(subTabId) {
+            for (let i = 1; i <= 2; i++) {
+                const content = document.getElementById(`mod1-tab${i}-content`);
+                const btn = document.getElementById(`mod1-tab${i}-btn`);
+                if (content) content.classList.add('hidden');
+                if (btn) btn.className = "tab-inactive pb-3 flex items-center gap-2";
+            }
+            const activeContent = document.getElementById(`${subTabId}-content`);
+            const activeBtn = document.getElementById(`${subTabId}-btn`);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = "tab-active pb-3 flex items-center gap-2";
+        }
+
+        // GEMINI API ASSISTANT INTEGRATION
+        function sendQuickPrompt(promptText) {
+            const inputField = document.getElementById('chat-input-field');
+            if (inputField) {
+                inputField.value = promptText;
+                handleChatMessageSubmit(new Event('submit'));
+            }
+        }
+
+        async function fetchGeminiResponse(userQuery) {
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: PRISMA_SYSTEM_INSTRUCTION }]
+                }
+            };
+
+            try {
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text) return text;
+            } catch (err) {
+                console.debug("Gemini API call fallback executed.");
+            }
+            // Fallback response generator if API key is blank or call fails
+            return generateAIResponseFallback(userQuery);
+        }
+
+        async function handleChatMessageSubmit(e) {
+            e.preventDefault();
+            const inputField = document.getElementById('chat-input-field');
+            const sendBtn = document.getElementById('chat-send-btn');
+            const userMsg = inputField.value.trim();
+            if (!userMsg) return;
+
+            const chatContainer = document.getElementById('chat-messages-container');
+            chatContainer.innerHTML += `
+                <div class="flex gap-3 items-start justify-end">
+                    <div class="bg-blue-600 text-white p-3.5 rounded-2xl rounded-tr-none max-w-lg space-y-1">
+                        <span class="text-[10px] text-blue-200 block font-mono">Ejecutivo VIP</span>
+                        <p>${escapeHtml(userMsg)}</p>
+                    </div>
+                </div>
+            `;
+            inputField.value = '';
+            if (sendBtn) sendBtn.disabled = true;
+
+            // Loading indicator
+            const loadingId = 'loading-' + Date.now();
+            chatContainer.innerHTML += `
+                <div id="${loadingId}" class="flex gap-3 items-start">
+                    <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">P</div>
+                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none text-xs text-slate-500 flex items-center gap-2 font-mono">
+                        <i class="fa-solid fa-spinner animate-spin text-blue-600"></i> PRISMA IA está procesando su consulta...
+                    </div>
+                </div>
+            `;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            const botReply = await fetchGeminiResponse(userMsg);
+
+            const loadingEl = document.getElementById(loadingId);
+            if (loadingEl) loadingEl.remove();
+
+            chatContainer.innerHTML += `
+                <div class="flex gap-3 items-start">
+                    <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">P</div>
+                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none max-w-xl text-slate-800 dark:text-slate-200 space-y-2">
+                        <span class="text-[10px] text-blue-600 dark:text-blue-400 font-bold block font-mono">Asistente Gemini IA "PRISMA"</span>
+                        <div class="leading-relaxed whitespace-pre-line">${botReply}</div>
+                    </div>
+                </div>
+            `;
+            if (sendBtn) sendBtn.disabled = false;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function generateAIResponseFallback(msg) {
+            const lower = msg.toLowerCase();
+            if (lower.includes('iva') || lower.includes('isr') || lower.includes('hacienda') || lower.includes('tasa') || lower.includes('f07') || lower.includes('f14') || lower.includes('f11')) {
+                return "De acuerdo con el Ministerio de Hacienda (DGII) de El Salvador:\n\n• **IVA (F07):** 13% sobre Débito/Crédito fiscal.\n• **Pago a Cuenta (F14):** 1.75% mensual sobre ingresos brutos.\n• **ISR Corporativo (F11):** 25% si la renta gravada es ≤ $150,000 USD y 30% si supera $150,000 USD.\n• **Retención Serv. Profesionales:** 10%.";
+            } else if (lower.includes('dso') || lower.includes('cobro')) {
+                return "El DSO (Days Sales Outstanding) mide el promedio de días en recuperar cobros de facturas. Con Dashboard 360° logramos reducirlo de 65 a 40 días inyectando caja operacional inmediata a su empresa.";
+            } else if (lower.includes('ssf') || lower.includes('cnr') || lower.includes('código') || lower.includes('ley')) {
+                return "El marco regulatorio salvadoreño exige:\n\n• **SSF:** Coeficiente de Solvencia Patrimonial ≥ 12% sobre activos por riesgo.\n• **CNR (Art. 474 Cód. Comercio):** Depósito obligatorio de Balances y Dictamen de Auditoría Externa en los primeros 120 días del año.";
+            } else {
+                return "Estimado Ejecutivo, estoy capacitado para responder sobre cualquier área de conocimiento general, análisis cuantitativo, estrategia de negocios, leyes tributarias o soluciones de Dashboard 360°. Para contacto telefónico directo marque a nuestra línea oficial: **+503 7909-4167**.";
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function openVIPPortal() {
+            document.getElementById('login-overlay').classList.remove('hidden');
+        }
+
+        function returnToLandingPage() {
+            document.getElementById('login-overlay').classList.add('hidden');
+            document.getElementById('portal-app').classList.add('hidden');
+            document.getElementById('landing-page').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function enterPortalFromOverlay() {
+            document.getElementById('login-overlay').classList.add('hidden');
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('portal-app').classList.remove('hidden');
+            switchMainModule('mod1');
+        }
+
+        function copyCredentials() {
+            const user = document.getElementById('cred-user').innerText;
+            const pass = document.getElementById('cred-pass').innerText;
+            const textToCopy = `Usuario: ${user} | Contraseña: ${pass}`;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btnText = document.getElementById('copy-text');
+            if (btnText) {
+                btnText.innerText = '¡Copiaste las Credenciales!';
+                setTimeout(() => { btnText.innerText = 'Copiar Credenciales'; }, 2000);
+            }
+        }
+
+        function triggerLogout() {
+            document.getElementById('login-overlay').classList.remove('hidden');
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const user = document.getElementById('login-username').value.trim();
+            const pass = document.getElementById('login-password').value.trim();
+            const alertBox = document.getElementById('login-alert');
+
+            if (user === 'VIP-PRISMA2026' && pass === 'Prisma360#2026') {
+                alertBox.className = 'p-3 rounded-xl text-xs font-bold text-center bg-emerald-100 text-emerald-800 border border-emerald-300';
+                alertBox.innerText = '¡Acceso Concedido! Inicializando Workspace...';
+                alertBox.classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('login-overlay').classList.add('hidden');
+                    enterPortalFromOverlay();
+                }, 800);
+            } else {
+                alertBox.className = 'p-3 rounded-xl text-xs font-bold text-center bg-red-100 text-red-800 border border-red-300';
+                alertBox.innerText = 'Credenciales Incorrectas. Use VIP-PRISMA2026 / Prisma360#2026';
+                alertBox.classList.remove('hidden');
+            }
+        }
+
+        function openBuzonEticoModal() { document.getElementById('buzon-modal').classList.remove('hidden'); }
+        function closeBuzonEticoModal() { document.getElementById('buzon-modal').classList.add('hidden'); }
+        function handleBuzonSubmit(e) { e.preventDefault(); alert('Reporte enviado a Compliance bajo ISO 27001.'); closeBuzonEticoModal(); }
+        function closeBookingModal() { document.getElementById('booking-modal').classList.add('hidden'); }
+    </script>
+</body>
+</html>
