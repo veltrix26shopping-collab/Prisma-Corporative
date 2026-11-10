@@ -753,8 +753,8 @@
                                 <p class="text-xs text-slate-300">BI Base, Auditoría Contable NIIF y Diagnóstico inicial de liquidez.</p>
                                 
                                 <div class="pt-2 border-t border-slate-700">
-                                    <div class="text-3xl font-black font-mono text-white">$3,500 <span class="text-xs text-slate-400 font-sans">USD / año</span></div>
-                                    <span class="text-[11px] text-blue-400 font-bold block mt-0.5">Eq. $290 USD / mes (Facturación Anual)</span>
+                                    <div class="text-3xl font-black font-mono text-white">$1,180 <span class="text-xs text-slate-400 font-sans">USD / año</span></div>
+                                    <span class="text-[11px] text-blue-400 font-bold block mt-0.5">Eq. $98 USD / mes (Facturación Anual)</span>
                                 </div>
 
                                 <ul class="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-700">
@@ -786,8 +786,8 @@
                                 <p class="text-xs text-blue-100">Solución completa con Acompañamiento Mensual y Simulador Predictivo.</p>
                                 
                                 <div class="pt-2 border-t border-blue-400/50">
-                                    <div class="text-4xl font-black font-mono text-white">$7,200 <span class="text-xs text-blue-200 font-sans">USD / año</span></div>
-                                    <span class="text-[11px] text-amber-300 font-bold block mt-0.5">Eq. $600 USD / mes (Facturación Anual)</span>
+                                    <div class="text-4xl font-black font-mono text-white">$2,380 <span class="text-xs text-blue-200 font-sans">USD / año</span></div>
+                                    <span class="text-[11px] text-amber-300 font-bold block mt-0.5">Eq. $198 USD / mes (Facturación Anual)</span>
                                 </div>
 
                                 <ul class="space-y-2.5 text-xs text-blue-100 pt-2 border-t border-blue-400/50">
@@ -813,8 +813,8 @@
                                 <p class="text-xs text-slate-300">Gobernanza Total, M&A, BI Multisede y Soporte 24/7 Dedicado.</p>
                                 
                                 <div class="pt-2 border-t border-slate-700">
-                                    <div class="text-3xl font-black font-mono text-white">$14,400 <span class="text-xs text-slate-400 font-sans">USD / año</span></div>
-                                    <span class="text-[11px] text-indigo-400 font-bold block mt-0.5">Eq. $1,200 USD / mes (Facturación Anual)</span>
+                                    <div class="text-3xl font-black font-mono text-white">$4,780 <span class="text-xs text-slate-400 font-sans">USD / año</span></div>
+                                    <span class="text-[11px] text-indigo-400 font-bold block mt-0.5">Eq. $398 USD / mes (Facturación Anual)</span>
                                 </div>
 
                                 <ul class="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-700">
@@ -2176,103 +2176,8 @@
         const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
 
         const PRISMA_SYSTEM_INSTRUCTION = `Eres el Asistente de IA oficial de 'PRISMA CORPORATIVE' (Prisma Consultores en Gestión S.A. de C.V., El Salvador). 
-Tus funciones clave:
-1. Brindar asesoría en tiempo real a ejecutivos y CFOs sobre el producto 'Dashboard 360° + CFO as a Service'.
-2. Explicar el marco regulatorio tributario y financiero de El Salvador:
-   - Ministerio de Hacienda (MH/DGII): IVA Form. F07 (13%), Pago a Cuenta Form. F14 (1.75%), ISR Form. F11 (25% hasta $150k, 30% más de $150k), Retenciones (10%).
-   - Superintendencia del Sistema Financiero (SSF): Normas NPB/NCP, Coeficiente de Solvencia Patrimonial ≥12%.
-   - Centro Nacional de Registros (CNR): Art. 474 Código de Comercio (Depósito de Balances y Dictamen de Auditoría en máximo 120 días).
-   - IFRS / NIIF para PyMEs y NIIF Completas.
-3. Proporcionar respuestas ejecutivas, claras y profesionales en español.
-4. Si preguntan por contacto directo, proveer el teléfono oficial: +503 7909-4167.`;
-
-        // DATASETS
-        const organigramData = [
-            { title: "Dirección General (CEO)", area: "alta", desc: "Supervisión estratégica global y relaciones institucionales." },
-            { title: "Director Financiero (CFO Senior)", area: "alta", desc: "Líder de la mesa directiva y decisiones de capital." },
-            { title: "Director de Operaciones (COO)", area: "alta", desc: "Gestión de servucción y aseguramiento de calidad B2B." },
-            { title: "Director de Tecnología (CTO)", area: "alta", desc: "Arquitectura del motor Data Pipeline ETL e ISO 27001." },
-            { title: "Gerente de Asesoría Financiera", area: "consultoria", desc: "Coordinación de consultas CFO 1 a 1." },
-            { title: "Consultor Senior NIIF", area: "consultoria", desc: "Auditoría contable e interpretación de estándares IFRS." },
-            { title: "Especialista en Fiscalidad MH", area: "consultoria", desc: "Estructuración de deducciones y formularios F07/F14/F11." },
-            { title: "Analista Senior de BI & Data", area: "consultoria", desc: "Modelación de tableros 360° en tiempo real." },
-            { title: "Consultor de Reingeniería de Procesos", area: "consultoria", desc: "Detección y eliminación de fugas de caja." },
-            { title: "Analista de Riesgo Crediticio", area: "consultoria", desc: "Evaluación de cartera de cobros y mitigación DSO." },
-            { title: "Jefe de Auditoría Externa", area: "finanzas", desc: "Certificación de dictámenes para el deposito CNR (Art. 474)." },
-            { title: "Gerente Contable B2B", area: "finanzas", desc: "Supervisión de cierres contables mensuales." },
-            { title: "Especialista en Precios de Transferencia", area: "finanzas", desc: "Estudios de precios entre partes relacionadas." },
-            { title: "Analista Tesorero & Liquidez", area: "finanzas", desc: "Monitoreo del Cash Runway y presupuesto de tesorería." },
-            { title: "Ingeniero ETL & Integraciones", area: "consultoria", desc: "Conexión de APIs ERP con SAP, QuickBooks y PowerBI." },
-            { title: "Oficial de Compliance & Ética", area: "alta", desc: "Gestión del Buzón Ético y cumplimiento normativo." },
-            { title: "Asistente Ejecutivo de Mesa CFO", area: "finanzas", desc: "Coordinación de sesiones directivas semanales." },
-            { title: "Analista de Fusiones & Adquisiciones", area: "consultoria", desc: "Modelación de proyectos M&A y valoración WACC." },
-            { title: "Especialista en Ciberseguridad", area: "alta", desc: "Protección de datos sensibles bajo protocolos NDA." },
-            { title: "Coordinador de Atención al Cliente B2B", area: "finanzas", desc: "Soporte operacional y recepción directiva 24/7." }
-        ];
-
-        const reviewsData = [
-            { author: "Lic. Roberto Mendoza", company: "Grupo Industrial El Salvador", comment: "El Dashboard 360° redujo nuestro DSO en 22 días durante el primer trimestre. La asesoría del CFO asignado fue decisiva." },
-            { author: "Dra. Sofía Alvarenga", company: "Distribuidora Médica C.A.", comment: "Logramos detectar fugas de caja en inventarios que representaban el 3.8% de nuestro margen EBITDA. Excelente servucción." },
-            { author: "Ing. Carlos Gutiérrez", company: "Logística & Transportes SV", comment: "La integración ETL con SAP fue impecable en menos de 5 días hábiles. El soporte ante el MH fue clave." },
-            { author: "Valeria Castaneda", company: "Textiles del Pacífico", comment: "El acompañamiento en la estructuración del Pago a Cuenta (F14) liberó liquidez crítica para nuestra nómina." },
-            { author: "Lic. Fernando Rivas", company: "Corporación Agrocomercial", comment: "Las reuniones mensuales con el Director Financiero nos dieron claridad total para tomar decisiones de expansión." },
-            { author: "Ing. Mario Meléndez", company: "Construcciones & Desarrollos", comment: "El simulador What-If nos permitió prever el impacto de tasas bancarias antes de adquirir financiamiento CapEx." },
-            { author: "Gabriela Morales", company: "Servicios Tecnológicos B2B", comment: "La suite de calculadoras WACC y VAN cualificadas simplificó la aprobación de proyectos ante el Consejo." },
-            { author: "Lic. Rodrigo Salguero", company: "Empacadora Central", comment: "Cumplimiento 100% garantizado con el depósito de balances en el CNR bajo el Art. 474. Total transparencia." },
-            { author: "Dra. Carmen Batres", company: "Cadena Farmacéutica SV", comment: "La segmentación ABC de clientes transformó nuestra política de cobros. Ahora cobramos a tiempo." },
-            { author: "Ing. Mauricio Solís", company: "Alimentos Procesados S.A.", comment: "Inversión con retorno multiplicado. El Executive 360° se pagó solo en los primeros dos meses." },
-            { author: "Lucía Argueta", company: "Importadora Centroamericana", comment: "Impresionante capacidad analítica. El Asistente IA PRISMA responde dudas tributarias de inmediato." },
-            { author: "Lic. Gabriel Fuentes", company: "Desarrollos Inmobiliarios", comment: "Recomiendo la firma sin reserva alguna. Profesionalismo Big-4 a un costo altamente competitivo." },
-            { author: "Ing. Elena Villalta", company: "Energías Renovables SV", comment: "Gobernanza de datos impecable con acuerdos NDA bilaterales rigurosos. Seguridad total." },
-            { author: "Oscar Benítez", company: "Comercializadora de Insumos", comment: "La rápida respuesta en momentos de crisis de caja salvó nuestro cierre fiscal de fin de año." }
-        ];
-
-        const templateDataStore = {
-            'f07-ventas': {
-                name: "F07_Libro_Ventas_IVA_Prisma.csv",
-                headers: ["No.", "Fecha Emisión", "No. Comprobante (CCF)", "Cliente / Razón Social", "NIT / NRC", "Ventas Exentas ($)", "Ventas Gravadas ($)", "Débito Fiscal 13% ($)", "Total Venta ($)"],
-                rows: [
-                    ["1", "02/01/2026", "CCF-001920", "Corporación Textil S.A.", "0614-120590-101-2", "0.00", "25,000.00", "3,250.00", "28,250.00"],
-                    ["2", "05/01/2026", "CCF-001921", "Distribuidora Agrícola SV", "0614-200885-102-1", "0.00", "14,500.00", "1,885.00", "16,385.00"],
-                    ["3", "12/01/2026", "CCF-001922", "Industrias Alimenticias C.A.", "0614-050392-103-8", "1,200.00", "38,000.00", "4,940.00", "44,140.00"],
-                    ["4", "18/01/2026", "CCF-001923", "Servicios de Ingenería S.A.", "0614-111178-104-5", "0.00", "8,200.00", "1,066.00", "9,266.00"],
-                    ["5", "25/01/2026", "CCF-001924", "Comercializadora del Sur", "0614-300999-105-9", "0.00", "19,800.00", "2,574.00", "22,374.00"]
-                ]
-            },
-            'f07-compras': {
-                name: "F07_Libro_Compras_IVA_Prisma.csv",
-                headers: ["No.", "Fecha Factura", "No. Documento", "Proveedor", "NRC Proveedor", "Compras Gravadas ($)", "Crédito Fiscal 13% ($)", "Anticipo IVA 2%", "Total Compra ($)"],
-                rows: [
-                    ["1", "03/01/2026", "FAC-99120", "Importadora de Insumos S.A.", "12345-6", "18,000.00", "2,340.00", "0.00", "20,340.00"],
-                    ["2", "08/01/2026", "FAC-55412", "Energía Eléctrica de SV", "98765-4", "4,200.00", "546.00", "0.00", "4,746.00"],
-                    ["3", "15/01/2026", "FAC-11029", "Telecomunicaciones C.A.", "45678-9", "2,100.00", "273.00", "0.00", "2,373.00"],
-                    ["4", "22/01/2026", "FAC-88391", "Empaque & Embalajes S.A.", "33412-1", "9,500.00", "1,235.00", "0.00", "10,735.00"]
-                ]
-            },
-            'f14-renta': {
-                name: "F14_Pago_A_Cuenta_Prisma.csv",
-                headers: ["Concepto Tributario", "Base Imponible ($)", "Alícuota Legal", "Impuesto Computado ($)", "Crédito Acreditable ($)", "Saldo Neto MH ($)"],
-                rows: [
-                    ["Pago a Cuenta Ingresos Brutos", "105,500.00", "1.75%", "1,846.25", "0.00", "1,846.25"],
-                    ["Retenciones Servicios Profesionales (10%)", "12,000.00", "10.00%", "1,200.00", "1,200.00", "0.00"],
-                    ["Retención a No Residentes", "5,000.00", "20.00%", "1,000.00", "0.00", "1,000.00"]
-                ]
-            },
-            'libro-mayor': {
-                name: "Balance_Comprobacion_NIIF_Prisma.csv",
-                headers: ["Código Cuenta", "Descripción Cuenta NIIF", "Saldo Inicial ($)", "Debe ($)", "Haber ($)", "Saldo Final ($)"],
-                rows: [
-                    ["1101-01", "Efectivo y Equivalentes de Efectivo", "45,000.00", "120,500.00", "85,000.00", "80,500.00"],
-                    ["1102-01", "Cuentas por Cobrar Comerciales (DSO 40d)", "95,000.00", "105,500.00", "115,000.00", "85,500.00"],
-                    ["1103-01", "Inventarios Mantenidos para la Venta", "60,000.00", "35,000.00", "40,000.00", "55,000.00"],
-                    ["2101-01", "Cuentas por Pagar Comerciales (Proveedores)", "50,000.00", "45,000.00", "48,000.00", "53,000.00"],
-                    ["3101-01", "Capital Social Pagado", "100,000.00", "0.00", "0.00", "100,000.00"]
-                ]
-            }
-        };
-
-        // FLOATING 3D PRISMS CANVAS ANIMATION ENGINE
-        let isDarkMode = true; // Default Dark Mode for maximum elegance
+        // FLOATING 3D PRISMS CANVAS ANIMATION ENGINE (ENHANCED REAL-TIME 3D PROJECTION)
+        let isDarkMode = true; 
         let canvas, ctx;
         let prismsArray = [];
 
@@ -2281,23 +2186,24 @@ Tus funciones clave:
                 this.reset(w, h, initial);
             }
             reset(w, h, initial = false) {
-                this.x = initial ? Math.random() * w : -100;
+                this.x = initial ? Math.random() * w : -150;
                 this.y = Math.random() * h;
-                this.z = Math.random() * 400 + 100; // 3D depth layer
-                this.size = (1.5 - this.z / 600) * 35; // scale by depth
-                this.speedX = (1.2 - this.z / 800) * 1.4;
-                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.z = Math.random() * 500 + 50; // Depth layer
+                this.size = (1 - this.z / 700) * 38 + 14; 
+                this.speedX = (1 - this.z / 800) * 1.5 + 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.35;
                 
                 // 3D Rotations
                 this.rotX = Math.random() * Math.PI * 2;
                 this.rotY = Math.random() * Math.PI * 2;
                 this.rotZ = Math.random() * Math.PI * 2;
-                this.rotSpeedX = (Math.random() - 0.5) * 0.015;
-                this.rotSpeedY = (Math.random() - 0.5) * 0.02;
-                this.rotSpeedZ = (Math.random() - 0.5) * 0.01;
                 
-                this.opacity = (1 - this.z / 600) * 0.45 + 0.15;
-                this.hue = Math.random() > 0.4 ? (Math.random() * 40 + 200) : (Math.random() * 40 + 140); // Blue/Cyan or Emerald
+                this.rotSpeedX = (Math.random() - 0.5) * 0.02;
+                this.rotSpeedY = (Math.random() - 0.5) * 0.025;
+                this.rotSpeedZ = (Math.random() - 0.5) * 0.015;
+                
+                this.opacity = (1 - this.z / 700) * 0.5 + 0.15;
+                this.hue = Math.random() > 0.35 ? 210 : 160; // Deep Sapphire Blue or Emerald Green
             }
             update(w, h) {
                 this.x += this.speedX;
@@ -2305,41 +2211,72 @@ Tus funciones clave:
                 this.rotX += this.rotSpeedX;
                 this.rotY += this.rotSpeedY;
                 this.rotZ += this.rotSpeedZ;
-                if (this.x > w + 120) this.reset(w, h);
+                if (this.x > w + 150) this.reset(w, h);
             }
             draw(ctx) {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 
-                // 3D Polyhedron Vertices (Triangular Prism)
                 const s = this.size;
-                const h = s * 1.5;
-
-                // Translucent gradient fill
-                const grad = ctx.createLinearGradient(-s, -h/2, s, h/2);
-                const strokeColor = `hsla(${this.hue}, 90%, 70%, ${this.opacity + 0.25})`;
-                const fillColor = `hsla(${this.hue}, 80%, 55%, ${this.opacity * 0.4})`;
+                const height = s * 1.6;
                 
-                ctx.fillStyle = fillColor;
-                ctx.strokeStyle = strokeColor;
-                ctx.lineWidth = 1.5;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = `hsla(${this.hue}, 100%, 60%, ${this.opacity})`;
+                // 3D projection parameters
+                const cosY = Math.cos(this.rotY);
+                const sinY = Math.sin(this.rotY);
+                const cosX = Math.cos(this.rotX);
+                const sinX = Math.sin(this.rotX);
 
-                // Render 3D Prism Outline
+                // Triangular prism vertices calculation
+                const topPoint = { x: 0, y: -height / 2 * cosX };
+                const leftPoint = { x: -s * cosY, y: height / 2 * cosX - s * sinX };
+                const rightPoint = { x: s * cosY, y: height / 2 * cosX + s * sinX };
+
+                // Depth offsets for 3D extrusion effect
+                const depthX = sinY * s * 0.8;
+                const depthY = -cosY * s * 0.4;
+
+                ctx.lineWidth = 1.8;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 65%, ${this.opacity * 0.8})`;
+
+                // Render Front Facet
                 ctx.beginPath();
-                ctx.moveTo(0, -h/2);
-                ctx.lineTo(s * Math.cos(this.rotY), h/2);
-                ctx.lineTo(-s * Math.cos(this.rotY + 1), h/2);
+                ctx.moveTo(topPoint.x, topPoint.y);
+                ctx.lineTo(rightPoint.x, rightPoint.y);
+                ctx.lineTo(leftPoint.x, leftPoint.y);
                 ctx.closePath();
+                ctx.fillStyle = `hsla(${this.hue}, 85%, 50%, ${this.opacity * 0.25})`;
+                ctx.strokeStyle = `hsla(${this.hue}, 90%, 70%, ${this.opacity * 0.9})`;
                 ctx.fill();
                 ctx.stroke();
 
-                // Inner facet reflection line
+                // Render Right Side Facet
                 ctx.beginPath();
-                ctx.moveTo(0, -h/2);
-                ctx.lineTo(0, h/2);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity + 0.2})`;
+                ctx.moveTo(topPoint.x, topPoint.y);
+                ctx.lineTo(rightPoint.x, rightPoint.y);
+                ctx.lineTo(rightPoint.x + depthX, rightPoint.y + depthY);
+                ctx.lineTo(topPoint.x + depthX, topPoint.y + depthY);
+                ctx.closePath();
+                ctx.fillStyle = `hsla(${this.hue + 20}, 90%, 60%, ${this.opacity * 0.35})`;
+                ctx.fill();
+                ctx.stroke();
+
+                // Render Left Side Facet
+                ctx.beginPath();
+                ctx.moveTo(topPoint.x, topPoint.y);
+                ctx.lineTo(leftPoint.x, leftPoint.y);
+                ctx.lineTo(leftPoint.x + depthX, leftPoint.y + depthY);
+                ctx.lineTo(topPoint.x + depthX, topPoint.y + depthY);
+                ctx.closePath();
+                ctx.fillStyle = `hsla(${this.hue - 20}, 80%, 45%, ${this.opacity * 0.2})`;
+                ctx.fill();
+                ctx.stroke();
+
+                // Internal Refraction Highlight Edge
+                ctx.beginPath();
+                ctx.moveTo(topPoint.x, topPoint.y);
+                ctx.lineTo(topPoint.x + depthX, topPoint.y + depthY);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.85})`;
                 ctx.stroke();
 
                 ctx.restore();
@@ -2354,7 +2291,7 @@ Tus funciones clave:
             window.addEventListener('resize', resizeCanvas);
 
             prismsArray = [];
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 32; i++) {
                 prismsArray.push(new Floating3DPrism(canvas.width, canvas.height, true));
             }
             animatePrisms();
