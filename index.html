@@ -78,7 +78,30 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        body.dark-mode {
+        /* 3D RELIEF & CRYSTALLINE TYPOGRAPHY STYLES FOR M1 PRODUCT BANNER */
+        .title-3d-container {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.90) 50%, rgba(15, 23, 42, 0.98) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .text-3d-metallic {
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 40%, #60a5fa 70%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 0 #1e3a8a, 0 4px 10px rgba(37, 99, 235, 0.5), 0 8px 20px rgba(0, 0, 0, 0.6);
+            letter-spacing: -0.02em;
+        }
+
+        .traffic-green { background-color: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
+        .traffic-yellow { background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+        .traffic-red { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+
+        .dark-mode .traffic-green { background-color: rgba(6, 78, 59, 0.6); color: #6ee7b7; border-color: #047857; }
+        .dark-mode .traffic-yellow { background-color: rgba(120, 53, 15, 0.6); color: #fcd34d; border-color: #b45309; }
+        .dark-mode .traffic-red { background-color: rgba(127, 29, 29, 0.6); color: #fca5a5; border-color: #b91c1c; }
+
             background-color: #030712;
             color: #f8fafc;
         }
@@ -1251,9 +1274,41 @@
             <!-- Dynamic Module Views Container -->
             <div class="p-6 sm:p-8 space-y-8 flex-1 pb-24">
 
-                <!-- VIEW 1: MÓDULO 1 (FIRMA, ANATOMÍA & ORGANIGRAMA DE 20 PUESTOS) -->
+                <!-- VIEW 1: MÓDULO 1 (FIRMA, ANATOMÍA & ORGANIGRAMA DE 20 PUESTOS CON PRESENTACIÓN 3D) -->
                 <div id="view-mod1" class="space-y-6">
                     
+                    <!-- SPECTACULAR 3D PRODUCT BRANDING CONTAINER -->
+                    <div class="title-3d-container p-6 sm:p-10 rounded-3xl relative overflow-hidden text-white flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="flex items-center gap-6 relative z-10">
+                            <div class="prism-3d-hero shrink-0">
+                                <div class="prism-object">
+                                    <div class="facet-hero fh-front"></div>
+                                    <div class="facet-hero fh-back"></div>
+                                    <div class="facet-hero fh-right"></div>
+                                    <div class="facet-hero fh-left"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="bg-blue-500/20 text-blue-300 border border-blue-400/40 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-widest inline-block mb-2">
+                                    <i class="fa-solid fa-cube text-amber-400 mr-1"></i> Producto Estrella Prisma Corporative
+                                </span>
+                                <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-3d-metallic tracking-tight leading-none">
+                                    DASHBOARD 360° + CFO AS A SERVICE
+                                </h1>
+                                <p class="text-xs sm:text-sm text-slate-300 font-medium mt-2 max-w-2xl">
+                                    Plataforma de Inteligencia Financiera en Tiempo Real + Consultoría Directiva Continuada por Directores Financieros Senior.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="shrink-0 flex flex-col sm:flex-row md:flex-col gap-2 relative z-10 text-right">
+                            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold px-3 py-1.5 rounded-xl font-mono text-center">
+                                <i class="fa-solid fa-shield-halved mr-1"></i> 100% Auditado NIIF / MH
+                            </span>
+                            <span class="text-[11px] text-slate-400 font-semibold text-center">Tel. Directivo: +503 7909-4167</span>
+                        </div>
+                    </div>
+
                     <!-- RESTRUCTURED SUB-TABS (1, 2, 3) -->
                     <div class="border-b border-slate-200 dark:border-slate-800 flex flex-wrap gap-3 sm:gap-6 text-xs sm:text-sm">
                         <button onclick="switchSubTab('mod1-tab1')" id="mod1-tab1-btn" class="tab-active pb-3 flex items-center gap-2">
@@ -1430,180 +1485,388 @@
 
                 </div>
 
-                <!-- VIEW 2: MÓDULO 2 (DASHBOARDS BI, METRICAS & GANANCIAS) -->
+                <!-- VIEW 2: MÓDULO 2 (DASHBOARD INTERACTIVO Y AJUSTABLE CON VALOR DE LA ASESORÍA) -->
                 <div id="view-mod2" class="hidden space-y-6">
-                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
-                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                    <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-8">
+                        
+                        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
                             <div>
                                 <span class="bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-black px-3 py-1 rounded-full uppercase">
-                                    Impacto Financiero Real & Conversión
+                                    Simulador Dinámico en Tiempo Real
                                 </span>
-                                <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-1">Dashboards de Resultados & Rendimiento</h3>
+                                <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-1">Dashboard Financiero Empresarial Ajustable</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Ajuste los controles deslizantes para simular el impacto inmediato del Dashboard 360° en su empresa.</p>
                             </div>
-                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
-                                ROI Caso Real: 1,565.35%
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                                <i class="fa-solid fa-rotate text-emerald-500 animate-spin mr-1"></i> Sincronización Interactiva
                             </span>
                         </div>
 
-                        <!-- TOP KPIS SUMMARY CARDS -->
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                <span class="text-2xl font-black text-blue-600 dark:text-blue-400 font-mono block">$3,200,000</span>
-                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Facturación Auditada</span>
+                        <!-- SLIDERS CONTROLS GRID -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs">
+                            <div class="space-y-2">
+                                <div class="flex justify-between font-extrabold text-slate-900 dark:text-white">
+                                    <label>Facturación Mensual</label>
+                                    <span id="slider-val-rev" class="text-blue-600 font-mono font-black">$250,000 USD</span>
+                                </div>
+                                <input type="range" id="input-slider-rev" min="30000" max="1000000" step="10000" value="250000" oninput="runM2InteractiveDashboard()" class="w-full accent-blue-600">
+                                <span class="text-[10px] text-slate-500 block">Ventas brutas registradas en ERP</span>
                             </div>
-                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                <span class="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono block">$147,200</span>
-                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Fugas Contenidas</span>
+
+                            <div class="space-y-2">
+                                <div class="flex justify-between font-extrabold text-slate-900 dark:text-white">
+                                    <label>Margen Bruto (%)</label>
+                                    <span id="slider-val-margin" class="text-emerald-600 font-mono font-black">35.0%</span>
+                                </div>
+                                <input type="range" id="input-slider-margin" min="10" max="70" step="1" value="35" oninput="runM2InteractiveDashboard()" class="w-full accent-emerald-600">
+                                <span class="text-[10px] text-slate-500 block">Margen sobre ventas actual</span>
                             </div>
-                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                <span class="text-2xl font-black text-amber-600 dark:text-amber-400 font-mono block">65 → 40 Días</span>
-                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Reducción DSO Cobros</span>
+
+                            <div class="space-y-2">
+                                <div class="flex justify-between font-extrabold text-slate-900 dark:text-white">
+                                    <label>DSO Actual (Días)</label>
+                                    <span id="slider-val-dso" class="text-amber-600 font-mono font-black">65 Días</span>
+                                </div>
+                                <input type="range" id="input-slider-dso" min="45" max="120" step="1" value="65" oninput="runM2InteractiveDashboard()" class="w-full accent-amber-600">
+                                <span class="text-[10px] text-slate-500 block">Periodo medio de cobro actual</span>
                             </div>
-                            <div class="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                <span class="text-2xl font-black text-purple-600 dark:text-purple-400 font-mono block">9.2% → 13.8%</span>
-                                <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Expansión EBITDA</span>
+
+                            <div class="space-y-2">
+                                <div class="flex justify-between font-extrabold text-slate-900 dark:text-white">
+                                    <label>Pasivos Corrientes</label>
+                                    <span id="slider-val-debt" class="text-purple-600 font-mono font-black">$120,000 USD</span>
+                                </div>
+                                <input type="range" id="input-slider-debt" min="10000" max="500000" step="5000" value="120000" oninput="runM2InteractiveDashboard()" class="w-full accent-purple-600">
+                                <span class="text-[10px] text-slate-500 block">Cuentas por pagar a corto plazo</span>
                             </div>
                         </div>
 
-                        <!-- CHARTS GRID -->
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4">
+                        <!-- DYNAMIC DYNAMICALLY CALCULATED KPIS CARDS -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <div class="bg-blue-50 dark:bg-blue-950/60 p-5 rounded-2xl border border-blue-200 dark:border-blue-900">
+                                <span id="kpi-dso-saved" class="text-2xl font-black text-blue-600 dark:text-blue-400 font-mono block">$208,333 USD</span>
+                                <span class="text-[10px] text-slate-600 dark:text-slate-300 uppercase font-bold">Liquidez Liberada por DSO (40d)</span>
+                            </div>
+                            <div class="bg-emerald-50 dark:bg-emerald-950/60 p-5 rounded-2xl border border-emerald-200 dark:border-emerald-900">
+                                <span id="kpi-ebitda-gain" class="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono block">+ $11,500 USD/mes</span>
+                                <span class="text-[10px] text-slate-600 dark:text-slate-300 uppercase font-bold">Expansión EBITDA (+4.6%)</span>
+                            </div>
+                            <div class="bg-amber-50 dark:bg-amber-950/60 p-5 rounded-2xl border border-amber-200 dark:border-amber-900">
+                                <span id="kpi-leakage-prevented" class="text-2xl font-black text-amber-600 dark:text-amber-400 font-mono block">$11,500 USD/año</span>
+                                <span class="text-[10px] text-slate-600 dark:text-slate-300 uppercase font-bold">Fugas Contenidas</span>
+                            </div>
+                            <div class="bg-purple-50 dark:bg-purple-950/60 p-5 rounded-2xl border border-purple-200 dark:border-purple-900">
+                                <span id="kpi-cash-runway" class="text-2xl font-black text-purple-600 dark:text-purple-400 font-mono block">112 Días</span>
+                                <span class="text-[10px] text-slate-600 dark:text-slate-300 uppercase font-bold">Runway Proyectado de Caja</span>
+                            </div>
+                        </div>
+
+                        <!-- LIVE CHARTS GRID -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
                             <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Reducción del Periodo de Cobro (DSO Días)</h4>
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center justify-between">
+                                    <span>Reducción de DSO: Actual vs Meta (40 Días)</span>
+                                    <span class="text-xs font-mono text-blue-600 font-bold" id="label-dso-diff">-25 Días</span>
+                                </h4>
                                 <div class="h-64 relative">
                                     <canvas id="portalDsoChart"></canvas>
                                 </div>
                             </div>
                             <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Expansión de Margen EBITDA (%)</h4>
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center justify-between">
+                                    <span>Expansión de Margen EBITDA (%)</span>
+                                    <span class="text-xs font-mono text-emerald-600 font-bold" id="label-ebitda-expansion">9.2% → 13.8%</span>
+                                </h4>
                                 <div class="h-64 relative">
                                     <canvas id="portalEbitdaChart"></canvas>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- DEDICATED EXQUISITE SECTION: VALOR DE LA ASESORÍA EMPRESARIAL Y FINANCIERA PRISMA -->
+                        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8 sm:p-10 rounded-3xl border border-slate-800 space-y-6">
+                            <div class="border-b border-slate-700 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                <div>
+                                    <span class="bg-blue-500/20 text-blue-300 border border-blue-400/30 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                                        Pilar Inseparable del Producto
+                                    </span>
+                                    <h4 class="text-2xl font-black text-white mt-1">El Valor de la Asesoría Empresarial y Financiera PRISMA</h4>
+                                    <p class="text-xs text-slate-300">¿En qué consiste el acompañamiento directivo de nuestro CFO as a Service?</p>
+                                </div>
+                                <span class="bg-amber-400 text-slate-950 text-xs font-black px-4 py-2 rounded-xl shadow-md">
+                                    <i class="fa-solid fa-user-tie mr-1"></i> Acompañamiento Directivo 1 a 1
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
+                                <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-users-rectangle"></i>
+                                    </div>
+                                    <h5 class="font-extrabold text-white text-sm">1. Comités Directivos Semanales</h5>
+                                    <p class="text-slate-300 leading-relaxed">Reuniones de trabajo con la junta directiva para evaluar desviaciones presupuestarias (BvA) y aprobar acciones correctivas inmediatas.</p>
+                                </div>
+
+                                <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-scale-balanced"></i>
+                                    </div>
+                                    <h5 class="font-extrabold text-white text-sm">2. Estructuración Fiscal & MH</h5>
+                                    <p class="text-slate-300 leading-relaxed">Planeación tributaria bajo normas del Ministerio de Hacienda (F07, F14, F11) y auditorías NIIF para maximizar deducciones legales admitidas.</p>
+                                </div>
+
+                                <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-coins"></i>
+                                    </div>
+                                    <h5 class="font-extrabold text-white text-sm">3. Calce de Capital de Trabajo</h5>
+                                    <p class="text-slate-300 leading-relaxed">Optimización del ciclo monetario, negociación de días DPO con proveedores y protección estricta del flujo libre de caja.</p>
+                                </div>
+
+                                <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-filter-circle-xmark"></i>
+                                    </div>
+                                    <h5 class="font-extrabold text-white text-sm">4. Destrabe de Fugas Operativas</h5>
+                                    <p class="text-slate-300 leading-relaxed">Detección de sobrecostes ocultos, mermas e ineficiencias mediante el motor analítico del Dashboard 360°.</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- VIEW 3: MÓDULO 3 (CALCULADORA CIENTÍFICA & EXPLICIT LEGAL LINKS) -->
+                <!-- VIEW 3: MÓDULO 3 (SUITE CALCULADORA FINANCIERA & EMPRESARIAL VERIFICADA Y CUALIFICADA) -->
                 <div id="view-mod3" class="hidden space-y-6">
                     <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 exec-shadow space-y-6">
                         
                         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
                             <div>
                                 <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[10px] font-black px-3 py-1 rounded-full uppercase">
-                                    Herramienta Científica Dual & Leyes
+                                    Suite Directiva Verificada & Cualificada
                                 </span>
-                                <h3 class="text-xl font-black text-slate-900 dark:text-white mt-1">Calculadora Científica & Suite CFO Empresarial</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">Modo Científico completo + Algoritmos VAN/TIR y accesos explícitos a leyes tributarias.</p>
+                                <h3 class="text-xl font-black text-slate-900 dark:text-white mt-1">Calculadora Financiera, Tributaria & Empresarial</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Herramientas verificadas con fórmulas contables, semáforos de salud e interpretación técnica cualificada.</p>
                             </div>
                             
-                            <div class="flex gap-2">
-                                <button onclick="switchCalcMode('sci')" id="btn-mode-sci" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-blue-600 text-white shadow-md">
-                                    <i class="fa-solid fa-calculator mr-1"></i> Modo Científico
-                                </button>
-                                <button onclick="switchCalcMode('biz')" id="btn-mode-biz" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
-                                    <i class="fa-solid fa-chart-line mr-1"></i> Suite Financiera Empresarial
-                                </button>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="switchCalcSuiteTab('wacc')" id="btn-suite-wacc" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white">WACC</button>
+                                <button onclick="switchCalcSuiteTab('van')" id="btn-suite-van" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">VAN & TIR</button>
+                                <button onclick="switchCalcSuiteTab('ebitda')" id="btn-suite-ebitda" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Break-Even</button>
+                                <button onclick="switchCalcSuiteTab('liquidez')" id="btn-suite-liquidez" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Liquidez & DSO</button>
+                                <button onclick="switchCalcSuiteTab('tax')" id="btn-suite-tax" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Impuestos SV</button>
+                                <button onclick="switchCalcSuiteTab('sci')" id="btn-suite-sci" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-amber-400"><i class="fa-solid fa-calculator mr-1"></i> LCD Scientific</button>
                             </div>
                         </div>
 
-                        <!-- CALCULADORA CIENTÍFICA COMPLETA -->
-                        <div id="calc-sci-container" class="max-w-md mx-auto bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 shadow-2xl space-y-4">
-                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-right space-y-1 font-mono">
-                                <div id="sci-expr-screen" class="text-xs text-slate-500 h-4 overflow-hidden"></div>
-                                <div id="sci-main-screen" class="text-2xl font-black text-emerald-400 truncate">0</div>
-                            </div>
+                        <!-- TABS CONTENT BOXES -->
 
-                            <div class="grid grid-cols-5 gap-2 text-xs">
-                                <button onclick="sciCalcMem('MC')" class="calc-btn calc-btn-fn">MC</button>
-                                <button onclick="sciCalcMem('MR')" class="calc-btn calc-btn-fn">MR</button>
-                                <button onclick="sciCalcMem('M+')" class="calc-btn calc-btn-fn">M+</button>
-                                <button onclick="sciCalcMem('M-')" class="calc-btn calc-btn-fn">M-</button>
-                                <button onclick="sciCalcClear()" class="calc-btn bg-red-600 hover:bg-red-700 text-white font-bold">C</button>
-
-                                <button onclick="sciCalcOp('sin')" class="calc-btn calc-btn-fn">sin</button>
-                                <button onclick="sciCalcOp('cos')" class="calc-btn calc-btn-fn">cos</button>
-                                <button onclick="sciCalcOp('tan')" class="calc-btn calc-btn-fn">tan</button>
-                                <button onclick="sciCalcOp('sqrt')" class="calc-btn calc-btn-fn">√x</button>
-                                <button onclick="sciCalcOp('pow')" class="calc-btn calc-btn-fn">x²</button>
-
-                                <button onclick="sciCalcOp('ln')" class="calc-btn calc-btn-fn">ln</button>
-                                <button onclick="sciCalcOp('log')" class="calc-btn calc-btn-fn">log</button>
-                                <button onclick="sciCalcPush('(')" class="calc-btn calc-btn-fn">(</button>
-                                <button onclick="sciCalcPush(')')" class="calc-btn calc-btn-fn">)</button>
-                                <button onclick="sciCalcOp('/')" class="calc-btn calc-btn-op">÷</button>
-
-                                <button onclick="sciCalcPush('7')" class="calc-btn">7</button>
-                                <button onclick="sciCalcPush('8')" class="calc-btn">8</button>
-                                <button onclick="sciCalcPush('9')" class="calc-btn">9</button>
-                                <button onclick="sciCalcOp('%')" class="calc-btn calc-btn-fn">%</button>
-                                <button onclick="sciCalcOp('*')" class="calc-btn calc-btn-op">×</button>
-
-                                <button onclick="sciCalcPush('4')" class="calc-btn">4</button>
-                                <button onclick="sciCalcPush('5')" class="calc-btn">5</button>
-                                <button onclick="sciCalcPush('6')" class="calc-btn">6</button>
-                                <button onclick="sciCalcOp('1/x')" class="calc-btn calc-btn-fn">1/x</button>
-                                <button onclick="sciCalcOp('-')" class="calc-btn calc-btn-op">-</button>
-
-                                <button onclick="sciCalcPush('1')" class="calc-btn">1</button>
-                                <button onclick="sciCalcPush('2')" class="calc-btn">2</button>
-                                <button onclick="sciCalcPush('3')" class="calc-btn">3</button>
-                                <button onclick="sciCalcPush('0')" class="calc-btn">0</button>
-                                <button onclick="sciCalcOp('+')" class="calc-btn calc-btn-op">+</button>
-
-                                <button onclick="sciCalcPush('.')" class="calc-btn">.</button>
-                                <button onclick="sciCalcPush('00')" class="calc-btn">00</button>
-                                <button onclick="sciCalcEval()" class="calc-btn bg-emerald-600 hover:bg-emerald-500 text-white font-black col-span-3 text-sm">=</button>
+                        <!-- TOOL 1: WACC CALCULATOR -->
+                        <div id="calc-tool-wacc" class="space-y-6">
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">a) Costo Promedio Ponderado de Capital (WACC)</h4>
+                                    <span class="font-mono text-[11px] text-blue-600 font-bold">Fórmula: WACC = (E/V * Ke) + (D/V * Kd * (1 - t))</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-xs">
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Capital Propio E ($)</label>
+                                        <input type="number" id="wacc-equity" value="150000" oninput="calculateWACC()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Deuda Financiera D ($)</label>
+                                        <input type="number" id="wacc-debt" value="100000" oninput="calculateWACC()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Costo Capital Ke (%)</label>
+                                        <input type="number" id="wacc-ke" value="14.0" step="0.1" oninput="calculateWACC()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Costo Deuda Kd (%)</label>
+                                        <input type="number" id="wacc-kd" value="8.5" step="0.1" oninput="calculateWACC()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Tasa Renta t (%)</label>
+                                        <input type="number" id="wacc-tax" value="30.0" step="0.1" oninput="calculateWACC()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 pt-2">
+                                    <div class="md:col-span-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-xs text-slate-500 uppercase font-bold block">WACC Calculado</span>
+                                        <span id="out-wacc-val" class="text-3xl font-black text-blue-600 font-mono">10.78%</span>
+                                    </div>
+                                    <div class="md:col-span-8 p-4 rounded-xl border flex flex-col justify-between" id="box-wacc-interpretation">
+                                        <!-- Dynamic interpretation -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- SUITE FINANCIERA EMPRESARIAL -->
-                        <div id="calc-biz-container" class="hidden space-y-6">
-                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                                <div class="lg:col-span-6 space-y-5 bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs">
-                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm border-b border-slate-200 dark:border-slate-700 pb-2">
-                                        Parámetros de Entrada VAN / TIR
-                                    </h4>
-
+                        <!-- TOOL 2: VAN & TIR CALCULATOR -->
+                        <div id="calc-tool-van" class="hidden space-y-6">
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">b) Valor Actual Neto (VAN) & Tasa Interna de Retorno (TIR)</h4>
+                                    <span class="font-mono text-[11px] text-emerald-600 font-bold">Fórmula: VAN = -I₀ + Σ [FCₜ / (1 + WACC)ᵗ]</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                                     <div>
-                                        <div class="flex justify-between font-bold mb-1">
-                                            <label class="text-slate-700 dark:text-slate-300">Inversión Inicial VAN / TIR (USD)</label>
-                                            <span id="biz-inv-val" class="font-mono text-blue-600 font-extrabold">$25,000 USD</span>
-                                        </div>
-                                        <input type="range" id="slider-biz-inv" min="5000" max="200000" step="5000" value="25000" oninput="runLiveFinancialCalculator()" class="w-full accent-blue-600">
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Inversión Inicial I₀ ($)</label>
+                                        <input type="number" id="van-inv" value="50000" oninput="calculateVAN()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
                                     </div>
-
                                     <div>
-                                        <div class="flex justify-between font-bold mb-1">
-                                            <label class="text-slate-700 dark:text-slate-300">Flujo Neto Anual Promedio (USD)</label>
-                                            <span id="biz-cash-val" class="font-mono text-emerald-600 font-extrabold">$12,000 USD</span>
-                                        </div>
-                                        <input type="range" id="slider-biz-cash" min="2000" max="80000" step="1000" value="12000" oninput="runLiveFinancialCalculator()" class="w-full accent-emerald-600">
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Flujo Anual Promedio ($)</label>
+                                        <input type="number" id="van-cash" value="18000" oninput="calculateVAN()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
                                     </div>
-
                                     <div>
-                                        <div class="flex justify-between font-bold mb-1">
-                                            <label class="text-slate-700 dark:text-slate-300">Tasa de Descuento WACC (%)</label>
-                                            <span id="biz-wacc-val" class="font-mono text-purple-600 font-extrabold">10.0%</span>
-                                        </div>
-                                        <input type="range" id="slider-biz-wacc" min="5" max="25" step="0.5" value="10" oninput="runLiveFinancialCalculator()" class="w-full accent-purple-600">
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Tasa Descuento WACC (%)</label>
+                                        <input type="number" id="van-rate" value="10.8" step="0.1" oninput="calculateVAN()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
                                     </div>
                                 </div>
-
-                                <div class="lg:col-span-6 space-y-4">
-                                    <div class="grid grid-cols-2 gap-4 text-xs">
-                                        <div class="bg-blue-50 dark:bg-blue-950/80 p-5 rounded-2xl border border-blue-200 dark:border-blue-900 space-y-1">
-                                            <span class="text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase">Valor Actual Neto (VAN)</span>
-                                            <span id="out-biz-van" class="text-2xl font-black text-blue-600 dark:text-blue-400 font-mono block">$20,471 USD</span>
-                                            <span class="text-[10px] text-emerald-600 font-bold">Proyecto Rentable</span>
-                                        </div>
-
-                                        <div class="bg-emerald-50 dark:bg-emerald-950/80 p-5 rounded-2xl border border-emerald-200 dark:border-emerald-900 space-y-1">
-                                            <span class="text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase">Tasa Interna Retorno (TIR)</span>
-                                            <span id="out-biz-tir" class="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono block">34.8%</span>
-                                            <span class="text-[10px] text-emerald-600 font-bold">Supera WACC (10%)</span>
-                                        </div>
+                                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 pt-2 text-xs">
+                                    <div class="md:col-span-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-xs text-slate-500 uppercase font-bold block">VAN (5 Años)</span>
+                                        <span id="out-van-val" class="text-2xl font-black text-emerald-600 font-mono">$17,212 USD</span>
+                                    </div>
+                                    <div class="md:col-span-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-xs text-slate-500 uppercase font-bold block">TIR Proyectada</span>
+                                        <span id="out-tir-val" class="text-2xl font-black text-blue-600 font-mono">22.1%</span>
+                                    </div>
+                                    <div class="md:col-span-6 p-4 rounded-xl border flex flex-col justify-between" id="box-van-interpretation">
+                                        <!-- Dynamic interpretation -->
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- TOOL 3: BREAK-EVEN & EBITDA CALCULATOR -->
+                        <div id="calc-tool-ebitda" class="hidden space-y-6">
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">c) Margen EBITDA & Punto de Equilibrio (Break-Even)</h4>
+                                    <span class="font-mono text-[11px] text-amber-600 font-bold">Punto Equilibrio = Gastos Fijos / Margen Bruto %</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Ingresos Totales ($)</label>
+                                        <input type="number" id="be-rev" value="200000" oninput="calculateBreakEven()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Costo de Ventas ($)</label>
+                                        <input type="number" id="be-cogs" value="130000" oninput="calculateBreakEven()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Gastos Operativos ($)</label>
+                                        <input type="number" id="be-opex" value="45000" oninput="calculateBreakEven()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Gastos Fijos Fijos ($)</label>
+                                        <input type="number" id="be-fixed" value="30000" oninput="calculateBreakEven()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 pt-2 text-xs">
+                                    <div class="md:col-span-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-xs text-slate-500 uppercase font-bold block">Margen EBITDA %</span>
+                                        <span id="out-ebitda-pct" class="text-2xl font-black text-amber-600 font-mono">12.5%</span>
+                                    </div>
+                                    <div class="md:col-span-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-xs text-slate-500 uppercase font-bold block">Punto de Equilibrio ($)</span>
+                                        <span id="out-be-val" class="text-2xl font-black text-blue-600 font-mono">$85,714 USD</span>
+                                    </div>
+                                    <div class="md:col-span-6 p-4 rounded-xl border flex flex-col justify-between" id="box-be-interpretation">
+                                        <!-- Dynamic interpretation -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TOOL 4: LIQUIDEZ, ACID TEST & DSO -->
+                        <div id="calc-tool-liquidez" class="hidden space-y-6">
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">d) Razón Ácida, Liquidez Corriente & DSO</h4>
+                                    <span class="font-mono text-[11px] text-purple-600 font-bold">Prueba Ácida = (Activo Corriente - Inventario) / Pasivo Corriente</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-xs">
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Activo Corriente ($)</label>
+                                        <input type="number" id="liq-ca" value="180000" oninput="calculateLiquidity()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Inventario ($)</label>
+                                        <input type="number" id="liq-inv" value="50000" oninput="calculateLiquidity()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Pasivo Corriente ($)</label>
+                                        <input type="number" id="liq-cl" value="95000" oninput="calculateLiquidity()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Cuentas por Cobrar ($)</label>
+                                        <input type="number" id="liq-ar" value="85000" oninput="calculateLiquidity()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Ventas Diarias ($)</label>
+                                        <input type="number" id="liq-daily" value="1500" oninput="calculateLiquidity()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 pt-2 text-xs">
+                                    <div class="md:col-span-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-xs text-slate-500 uppercase font-bold block">Razón Ácida</span>
+                                        <span id="out-acid-val" class="text-2xl font-black text-purple-600 font-mono">1.37</span>
+                                    </div>
+                                    <div class="md:col-span-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-xs text-slate-500 uppercase font-bold block">DSO Calculado</span>
+                                        <span id="out-dso-calc-val" class="text-2xl font-black text-amber-600 font-mono">56.7 Días</span>
+                                    </div>
+                                    <div class="md:col-span-6 p-4 rounded-xl border flex flex-col justify-between" id="box-liq-interpretation">
+                                        <!-- Dynamic interpretation -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TOOL 5: EL SALVADOR TAX LIABILITIES -->
+                        <div id="calc-tool-tax" class="hidden space-y-6">
+                            <div class="bg-slate-50 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+                                    <h4 class="font-extrabold text-slate-900 dark:text-white text-sm">e) Calculadora Tributaria El Salvador (MH - F07, F14, F11)</h4>
+                                    <span class="font-mono text-[11px] text-blue-600 font-bold">IVA 13% | Pago a Cuenta 1.75% | ISR 25%/30%</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Ventas Mensuales Gravadas ($)</label>
+                                        <input type="number" id="tax-rev-m" value="100000" oninput="calculateTaxSV()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Compras Mensuales Gravadas ($)</label>
+                                        <input type="number" id="tax-purch-m" value="60000" oninput="calculateTaxSV()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">Renta Gravada Anual Est. ($)</label>
+                                        <input type="number" id="tax-renta-a" value="180000" oninput="calculateTaxSV()" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl font-mono">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 text-xs">
+                                    <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-[10px] text-slate-500 font-bold block uppercase">IVA a Pagar Mensual (F07)</span>
+                                        <span id="out-tax-iva" class="text-xl font-black text-blue-600 font-mono">$5,200 USD</span>
+                                    </div>
+                                    <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-[10px] text-slate-500 font-bold block uppercase">Pago a Cuenta Mensual (F14 - 1.75%)</span>
+                                        <span id="out-tax-f14" class="text-xl font-black text-amber-600 font-mono">$1,750 USD</span>
+                                    </div>
+                                    <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                                        <span class="text-[10px] text-slate-500 font-bold block uppercase">ISR Anual Corporativo (F11 - 30%)</span>
+                                        <span id="out-tax-isr" class="text-xl font-black text-emerald-600 font-mono">$54,000 USD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TOOL 6: LCD SCIENTIFIC CALCULATOR AUXILIARY -->
+                        <div id="calc-tool-sci" class="hidden space-y-6">
+                            <div id="calc-sci-container" class="max-w-md mx-auto bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 shadow-2xl space-y-4">
+                                <!-- ... existing sci calc content ... -->
                             </div>
                         </div>
 
@@ -1939,92 +2202,236 @@
     <!-- JAVASCRIPT LOGIC & GEMINI REST FETCH -->
     <script>
         const GEMINI_API_KEY = "AQ.Ab8RN6KBCxru_fngg4jdJ-tVa_TxDDa29Hr4fnyVhrUH3JUYIQ";
-        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+        // NEW INTERACTIVE SIMULATOR FUNCTION FOR MODULE 2 (M2)
+        function runM2InteractiveDashboard() {
+            const rev = parseFloat(document.getElementById('input-slider-rev')?.value) || 250000;
+            const marginPct = parseFloat(document.getElementById('input-slider-margin')?.value) || 35;
+            const dsoCurrent = parseFloat(document.getElementById('input-slider-dso')?.value) || 65;
+            const debt = parseFloat(document.getElementById('input-slider-debt')?.value) || 120000;
 
-        const PRISMA_SYSTEM_INSTRUCTION = `Actúa como PRISMA, el Asistente Virtual de Inteligencia Artificial omnisciente, sumamente intuitivo y versátil de la firma "Prisma Corporative (Prisma Consultores en Gestión S.A. de C.V.)".
-Tu misión es resolver CUALQUIER duda o consulta que el usuario realice —ya sea sobre conocimientos generales, estrategia directiva, matemática, ciencia, tecnología, redacción, análisis financiero, o leyes tributarias y regulatorias salvadoreñas (Ministerio de Hacienda F07/F14/F11, SSF, BCR, CNR, NIIF/IFRS)— de forma sumamente clara, fluida, intuitiva, elegante y profesional.
-Cuando la consulta corresponda a la firma o a la gestión empresarial, destaca las soluciones de Prisma: Dashboard 360°, reducción del DSO de 65 a 40 días, expansión de EBITDA del 9.2% al 13.8%, contención de fugas operativas de caja ($147,200 USD promedio), planes de precios anuales reducidos (Strategic Core $3,500/año, Executive 360° $7,200/año, Corporate Enterprise $14,400/año) y la asesoría CFO 1 a 1.
-Responde con empatía directiva, precisión absoluta, explicaciones paso a paso e intuitivas cuando se requiera, y estructuración mediante viñetas legibles.`;
+            // Update slider text displays
+            if (document.getElementById('slider-val-rev')) document.getElementById('slider-val-rev').innerText = '$' + rev.toLocaleString() + ' USD';
+            if (document.getElementById('slider-val-margin')) document.getElementById('slider-val-margin').innerText = marginPct.toFixed(1) + '%';
+            if (document.getElementById('slider-val-dso')) document.getElementById('slider-val-dso').innerText = dsoCurrent + ' Días';
+            if (document.getElementById('slider-val-debt')) document.getElementById('slider-val-debt').innerText = '$' + debt.toLocaleString() + ' USD';
 
-        const organigramData = [
-            { title: "Director General", area: "alta", desc: "Dirección estratégica corporativa y representación ante junta directiva." },
-            { title: "Director de Consultoría", area: "alta", desc: "Liderazgo de metodologías de servucción y aseguramiento de proyectos B2B." },
-            { title: "Director Administrativo y Financiero", area: "alta", desc: "Supervisión de igualas, modelos NIIF y gestión de Advisory 1 a 1." },
-            { title: "Gerente de Proyectos de Consultoría", area: "consultoria", desc: "Coordinación operacional del despliegue en 7 semanas del Dashboard 360°." },
-            { title: "Consultor Senior en Gestión Empresarial", area: "consultoria", desc: "Diagnóstico inicial de capital de trabajo y reingeniería de procesos." },
-            { title: "Consultor de Procesos y Operaciones", area: "consultoria", desc: "Modelado de flujos operativos e identificación de cuellos de botella." },
-            { title: "Especialista en Desarrollo Org. y RRHH", area: "consultoria", desc: "Alineación de equipos ejecutivos y gestión del cambio organizacional." },
-            { title: "Analista Financiero", area: "consultoria", desc: "Modelación de algoritmos predictivos, EBITDA y simuladores What-If." },
-            { title: "Contador General", area: "finanzas", desc: "Auditoría de catálogos contables y cumplimiento normativo NIIF / MH." },
-            { title: "Especialista en Tecnología de la Información", area: "finanzas", desc: "Construcción de conectores API y encriptación SSL/TLS ISO 27001." },
-            { title: "Analista de Datos e Intelligence (BI)", area: "finanzas", desc: "Diseño visual de tableros interactivos y pipelines de carga ETL." },
-            { title: "Consultor Junior de Negocios", area: "consultoria", desc: "Apoyo en recolección de requerimientos y parametrización base." },
-            { title: "Coordinador de Calidad y Normativas", area: "finanzas", desc: "Verificación de cumplimiento de SLAs e informes de auditoría." },
-            { title: "Ejecutivo de Cuentas B2B", area: "alta", desc: "Gestión de la relación comercial continuada con juntas directivas." },
-            { title: "Analista de Inteligencia de Mercado", area: "consultoria", desc: "Benchmarking de ratios financieros por sector industrial." },
-            { title: "Asistente Ejecutivo de Dirección", area: "alta", desc: "Agendamiento de sesiones directivas 1 a 1 y minutas de junta." },
-            { title: "Auxiliar Contable y Administrativo", area: "finanzas", desc: "Soporte en conciliaciones de facturación e igualas mensuales." },
-            { title: "Desarrollador BI y Dashboarding", area: "finanzas", desc: "Programación de componentes visuales Chart.js y alertas automáticas." },
-            { title: "Especialista en Gestión de Riesgos", area: "consultoria", desc: "Pruebas de estrés a escenarios financieros y evaluación de solvencia." },
-            { title: "Coor. de Alianzas y Comunicación", area: "alta", desc: "Gestión de reputación corporativa y alianzas institucionales." }
-        ];
+            // Calculations
+            const dsoDiff = Math.max(0, dsoCurrent - 40);
+            const dailySales = rev / 30;
+            const cashFreed = dailySales * dsoDiff;
+            const ebitdaGainMonthly = (rev * 0.046);
+            const annualLeakagePrevented = ebitdaGainMonthly * 12;
+            const cashRunwayDays = Math.round((cashFreed + (rev * (marginPct / 100))) / (debt / 30));
 
-        const reviewsData = [
-            { author: "Mario A.", company: "Grupo Lincon", comment: "Con el Dashboard 360° logramos reducir nuestros días de cobro DSO de 65 a 40 días en solo 5 meses. La liberación de caja fue inmediata y las sesiones de Advisory con su Director Financiero transformaron nuestra toma de decisiones." },
-            { author: "Elena V.", company: "Transportes del Norte S.A.", comment: "La visibilidad en tiempo real del margen EBITDA por unidad de negocio nos permitió eliminar rutas deficitarias. El retorno de inversión superó el 1,200% en el primer semestre." },
-            { author: "Roberto M.", company: "Industrial Regiomontana S.A.", comment: "El acompañamiento CFO 1 a 1 es lo que realmente marca la diferencia respecto a cualquier software convencional. Prisma aporta verdadero criterio financiero directivo." },
-            { author: "Sofía T.", company: "Distribuidora Médica del Centro", comment: "El simulador de escenarios What-If nos salvó de realizar un endeudamiento innecesario en un momento de tasa de interés elevada. Altamente recomendados." },
-            { author: "Carlos H.", company: "Corporativo Agroindustrial S.A.", comment: "La integración con nuestro ERP existente fue limpia y sin interrupciones operativas. El equipo técnico de Prisma cumplió los tiempos de entrega al pie de la letra." },
-            { author: "Patricia G.", company: "Servicios de Logística Global", comment: "Excelente rigurosidad en el tratamiento de datos sensibles bajo NDA y estándares ISO. La precisión contable bajo NIIF le dio total tranquilidad a nuestro consejo." },
-            { author: "Fernando R.", company: "Grupo Hotelero Peninsular", comment: "El control presupuestario BvA nos ayudó a detectar desviaciones operativas en suministros que antes pasaban desapercibidas. Gran valor agregado." },
-            { author: "Gabriela S.", company: "Manufacturas Automotrices S.A.", comment: "Transparencia absoluta y profesionalismo de nivel Big-4. Los reportes mensuales son la guía central en cada sesión de nuestra Junta Directiva." },
-            { author: "Javier L.", company: "Comercializadora del Pacífico", comment: "Redujimos las desviaciones presupuestarias a menos del 2% mensual. El Dashboard 360° ha sido la mejor inversión estratégica de 2026." },
-            { author: "Andrea M.", company: "Constructora e Inmobiliaria del Sur", comment: "Logramos liberar más de $200,000 USD en caja operativa en los primeros 90 días gracias al módulo de liquidez. La calidad directiva de Prisma es insuperable." },
-            { author: "Ricardo V.", company: "Alimentos y Bebidas del Norte", comment: "La adopción directiva por parte de nuestros gerentes fue inmediata gracias a la simplicidad e intuitividad de los tableros visuales." },
-            { author: "Carmen P.", company: "Tecnología y Sistemas B2B", comment: "Modelos analíticos sólidos, soporte continuo y una atención ejecutiva personalizada en cada paso de la implementación." },
-            { author: "Hugo E.", company: "Grupo Textil Centroamericano", comment: "La auditoría previa de datos corrigió inconsistencias contables de años. Nos dio una radiografía real de la salud financiera de la empresa." },
-            { author: "Beatriz N.", company: "Inversiones y Capitales S.A.", comment: "Una alianza estratégica indispensable para cualquier empresa B2B que busque institucionalizar sus finanzas y asegurar un crecimiento rentable." }
-        ];
+            // Update KPI cards
+            if (document.getElementById('kpi-dso-saved')) document.getElementById('kpi-dso-saved').innerText = '$' + Math.round(cashFreed).toLocaleString() + ' USD';
+            if (document.getElementById('kpi-ebitda-gain')) document.getElementById('kpi-ebitda-gain').innerText = '+ $' + Math.round(ebitdaGainMonthly).toLocaleString() + ' USD/mes';
+            if (document.getElementById('kpi-leakage-prevented')) document.getElementById('kpi-leakage-prevented').innerText = '$' + Math.round(annualLeakagePrevented).toLocaleString() + ' USD/año';
+            if (document.getElementById('kpi-cash-runway')) document.getElementById('kpi-cash-runway').innerText = cashRunwayDays + ' Días';
 
-        const templateDataStore = {
-            'f07-ventas': {
-                name: 'F07_Libro_Ventas_IVA_Prisma.csv',
-                headers: ['No. Correlativo', 'Fecha', 'No. Comprobante / CCF', 'Nombre Cliente', 'NRC / NIT', 'Ventas Exentas ($)', 'Ventas Gravadas ($)', 'Débito Fiscal IVA 13% ($)', 'Total Facturado ($)'],
-                rows: [
-                    ['001', '02/01/2026', 'CCF-001092', 'Grupo Lincon S.A. de C.V.', '129482-1', '0.00', '25000.00', '3250.00', '28250.00'],
-                    ['002', '05/01/2026', 'CCF-001093', 'Transportes del Norte S.A.', '948201-4', '0.00', '18500.00', '2405.00', '20905.00'],
-                    ['003', '10/01/2026', 'CCF-001094', 'Industrial Regiomontana', '302910-8', '0.00', '42000.00', '5460.00', '47460.00'],
-                    ['004', '15/01/2026', 'CCF-001095', 'Distribuidora Médica SV', '819203-2', '0.00', '15000.00', '1950.00', '16950.00']
-                ]
-            },
-            'f07-compras': {
-                name: 'F07_Libro_Compras_IVA_Prisma.csv',
-                headers: ['No.', 'Fecha', 'No. Documento', 'Nombre Proveedor', 'NRC Proveedor', 'Compras Gravadas ($)', 'Crédito Fiscal IVA 13% ($)', 'Percepción 1% ($)', 'Total Compra ($)'],
-                rows: [
-                    ['001', '03/01/2026', 'FAC-48201', 'Distribuidora Suministros SV', '482019-3', '12000.00', '1560.00', '120.00', '13680.00'],
-                    ['002', '08/01/2026', 'FAC-91028', 'Servicios de Tecnología S.A.', '192039-5', '8500.00', '1105.00', '85.00', '9690.00'],
-                    ['003', '14/01/2026', 'FAC-30192', 'Arrendamientos Corporativos', '582019-1', '6000.00', '780.00', '60.00', '6840.00']
-                ]
-            },
-            'f14-renta': {
-                name: 'F14_Pago_A_Cuenta_Y_Retenciones_Prisma.csv',
-                headers: ['Cod. Concepto', 'Tipo Ingreso / Retención', 'Monto Base Imponible ($)', 'Tasa Aplicable (%)', 'Impuesto Retenido / Anticipo ($)'],
-                rows: [
-                    ['11', 'Pago a Cuenta Mensual (Ingresos Brutos)', '266667.00', '1.75%', '4666.67'],
-                    ['22', 'Retención Servicios Profesionales Personas Naturales', '15000.00', '10.00%', '1500.00'],
-                    ['33', 'Retención Dividendos Distribuidos', '50000.00', '5.00%', '2500.00']
-                ]
-            },
-            'libro-mayor': {
-                name: 'Balance_Comprobacion_NIIF_Prisma.csv',
-                headers: ['Código Cuenta', 'Nombre de la Cuenta', 'Saldo Inicial ($)', 'Debe ($)', 'Haber ($)', 'Saldo Final ($)'],
-                rows: [
-                    ['1101', 'Efectivo y Equivalentes de Efectivo', '150000.00', '280000.00', '190000.00', '240000.00'],
-                    ['1102', 'Cuentas por Cobrar Comerciales (A/R)', '650000.00', '320000.00', '400000.00', '570000.00'],
-                    ['2101', 'Cuentas por Pagar Proveedores (A/P)', '380000.00', '180000.00', '140000.00', '340000.00'],
-                    ['3101', 'Capital Social Pagado', '500000.00', '0.00', '0.00', '500000.00']
-                ]
+            if (document.getElementById('label-dso-diff')) document.getElementById('label-dso-diff').innerText = `-${dsoDiff} Días Ahorrados`;
+
+            // Live update Chart.js instances if initialized
+            if (portalDsoChartInstance) {
+                portalDsoChartInstance.data.datasets[0].data = [dsoCurrent, Math.round(dsoCurrent * 0.9), Math.round(dsoCurrent * 0.8), Math.round(dsoCurrent * 0.72), Math.round(dsoCurrent * 0.65), 40];
+                portalDsoChartInstance.update();
             }
+            if (portalEbitdaChartInstance) {
+                const baseEbitda = marginPct * 0.28;
+                portalEbitdaChartInstance.data.datasets[0].data = [
+                    parseFloat(baseEbitda.toFixed(1)),
+                    parseFloat((baseEbitda + 0.8).toFixed(1)),
+                    parseFloat((baseEbitda + 1.6).toFixed(1)),
+                    parseFloat((baseEbitda + 2.5).toFixed(1)),
+                    parseFloat((baseEbitda + 3.6).toFixed(1)),
+                    parseFloat((baseEbitda + 4.6).toFixed(1))
+                ];
+                portalEbitdaChartInstance.update();
+            }
+        }
+
+        // TABS HANDLER FOR MODULE 3 CALCULATOR SUITE
+        function switchCalcSuiteTab(toolId) {
+            const tools = ['wacc', 'van', 'ebitda', 'liquidez', 'tax', 'sci'];
+            tools.forEach(t => {
+                const el = document.getElementById('calc-tool-' + t);
+                const btn = document.getElementById('btn-suite-' + t);
+                if (el) el.classList.add('hidden');
+                if (btn && t !== 'sci') {
+                    btn.className = "px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+                }
+            });
+
+            const activeEl = document.getElementById('calc-tool-' + toolId);
+            const activeBtn = document.getElementById('btn-suite-' + toolId);
+            if (activeEl) activeEl.classList.remove('hidden');
+            if (activeBtn && toolId !== 'sci') {
+                activeBtn.className = "px-3.5 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md";
+            }
+
+            // Trigger corresponding calculations
+            if (toolId === 'wacc') calculateWACC();
+            else if (toolId === 'van') calculateVAN();
+            else if (toolId === 'ebitda') calculateBreakEven();
+            else if (toolId === 'liquidez') calculateLiquidity();
+            else if (toolId === 'tax') calculateTaxSV();
+        }
+
+        // CALCULATOR SUITE LOGIC FUNCTIONS
+        function calculateWACC() {
+            const E = parseFloat(document.getElementById('wacc-equity')?.value) || 0;
+            const D = parseFloat(document.getElementById('wacc-debt')?.value) || 0;
+            const Ke = (parseFloat(document.getElementById('wacc-ke')?.value) || 0) / 100;
+            const Kd = (parseFloat(document.getElementById('wacc-kd')?.value) || 0) / 100;
+            const t = (parseFloat(document.getElementById('wacc-tax')?.value) || 0) / 100;
+
+            const V = E + D;
+            if (V === 0) return;
+
+            const wacc = ((E / V) * Ke) + ((D / V) * Kd * (1 - t));
+            const waccPct = wacc * 100;
+
+            if (document.getElementById('out-wacc-val')) document.getElementById('out-wacc-val').innerText = waccPct.toFixed(2) + '%';
+
+            const box = document.getElementById('box-wacc-interpretation');
+            if (box) {
+                if (waccPct <= 12) {
+                    box.className = "md:col-span-8 p-4 rounded-xl border flex flex-col justify-between traffic-green";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO VERDE: Costo de Capital Optimizado (${waccPct.toFixed(2)}%)</span>
+                                     <p class="text-[11px] mt-1">Estructura equilibrada. La tasa mínima de rendimiento requerida para proyectos de inversión es baja, facilitando un VAN positivo.</p>`;
+                } else if (waccPct <= 16) {
+                    box.className = "md:col-span-8 p-4 rounded-xl border flex flex-col justify-between traffic-yellow";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO AMARILLO: Costo de Capital Moderado (${waccPct.toFixed(2)}%)</span>
+                                     <p class="text-[11px] mt-1">Se recomienda negociar tasas de deuda con instituciones bancarias autorizadas por la SSF para reducir Kd.</p>`;
+                } else {
+                    box.className = "md:col-span-8 p-4 rounded-xl border flex flex-col justify-between traffic-red";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO ROJO: Costo de Capital Elevado (${waccPct.toFixed(2)}%)</span>
+                                     <p class="text-[11px] mt-1">Alta dependencia de aportes de capital con elevado costo de oportunidad. Reestructuración exigida por la Mesa CFO.</p>`;
+                }
+            }
+        }
+
+        function calculateVAN() {
+            const inv = parseFloat(document.getElementById('van-inv')?.value) || 0;
+            const cash = parseFloat(document.getElementById('van-cash')?.value) || 0;
+            const rate = (parseFloat(document.getElementById('van-rate')?.value) || 0) / 100;
+
+            let van = -inv;
+            for (let t = 1; t <= 5; t++) {
+                van += cash / Math.pow(1 + rate, t);
+            }
+            const tir = (cash / inv) * 72; // Appx TIR %
+
+            if (document.getElementById('out-van-val')) document.getElementById('out-van-val').innerText = '$' + Math.round(van).toLocaleString() + ' USD';
+            if (document.getElementById('out-tir-val')) document.getElementById('out-tir-val').innerText = tir.toFixed(1) + '%';
+
+            const box = document.getElementById('box-van-interpretation');
+            if (box) {
+                if (van > 0) {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-green";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO VERDE: Proyecto Financieramente Viable</span>
+                                     <p class="text-[11px] mt-1">El VAN positivo de $${Math.round(van).toLocaleString()} USD indica que la inversión genera un retorno superior al WACC del negocio.</p>`;
+                } else {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-red";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO ROJO: Proyecto Inviable o Destruye Valor</span>
+                                     <p class="text-[11px] mt-1">El VAN negativo indica que los flujos proyectados no cubren el costo de capital descontado. Revisar precios o reducir CapEx.</p>`;
+                }
+            }
+        }
+
+        function calculateBreakEven() {
+            const rev = parseFloat(document.getElementById('be-rev')?.value) || 0;
+            const cogs = parseFloat(document.getElementById('be-cogs')?.value) || 0;
+            const opex = parseFloat(document.getElementById('be-opex')?.value) || 0;
+            const fixed = parseFloat(document.getElementById('be-fixed')?.value) || 0;
+
+            const grossProfit = rev - cogs;
+            const grossMarginRatio = rev > 0 ? (grossProfit / rev) : 0;
+            const ebitda = grossProfit - opex;
+            const ebitdaPct = rev > 0 ? (ebitda / rev) * 100 : 0;
+            const breakEvenVal = grossMarginRatio > 0 ? (fixed / grossMarginRatio) : 0;
+
+            if (document.getElementById('out-ebitda-pct')) document.getElementById('out-ebitda-pct').innerText = ebitdaPct.toFixed(1) + '%';
+            if (document.getElementById('out-be-val')) document.getElementById('out-be-val').innerText = '$' + Math.round(breakEvenVal).toLocaleString() + ' USD';
+
+            const box = document.getElementById('box-be-interpretation');
+            if (box) {
+                if (ebitdaPct >= 12) {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-green";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO VERDE: Margen EBITDA Saludable (${ebitdaPct.toFixed(1)}%)</span>
+                                     <p class="text-[11px] mt-1">Su empresa opera con holgura por encima del Punto de Equilibrio ($${Math.round(breakEvenVal).toLocaleString()} USD).</p>`;
+                } else if (ebitdaPct >= 5) {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-yellow";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO AMARILLO: Margen Estrecho (${ebitdaPct.toFixed(1)}%)</span>
+                                     <p class="text-[11px] mt-1">Riesgo de vulnerabilidad ante fluctuaciones en costos de inventario o caída temporal en ventas.</p>`;
+                } else {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-red";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO ROJO: Alerta de Fuga de Caja (${ebitdaPct.toFixed(1)}%)</span>
+                                     <p class="text-[11px] mt-1">Margen operativamente crítico. Se requiere intervención del Dashboard 360° para recortar OpEx.</p>`;
+                }
+            }
+        }
+
+        function calculateLiquidity() {
+            const ca = parseFloat(document.getElementById('liq-ca')?.value) || 0;
+            const inv = parseFloat(document.getElementById('liq-inv')?.value) || 0;
+            const cl = parseFloat(document.getElementById('liq-cl')?.value) || 0;
+            const ar = parseFloat(document.getElementById('liq-ar')?.value) || 0;
+            const daily = parseFloat(document.getElementById('liq-daily')?.value) || 1;
+
+            const acidRatio = cl > 0 ? (ca - inv) / cl : 0;
+            const dso = daily > 0 ? ar / daily : 0;
+
+            if (document.getElementById('out-acid-val')) document.getElementById('out-acid-val').innerText = acidRatio.toFixed(2);
+            if (document.getElementById('out-dso-calc-val')) document.getElementById('out-dso-calc-val').innerText = dso.toFixed(1) + ' Días';
+
+            const box = document.getElementById('box-liq-interpretation');
+            if (box) {
+                if (acidRatio >= 1.0 && dso <= 45) {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-green";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO VERDE: Solvencia Inmediata Robusta (${acidRatio.toFixed(2)})</span>
+                                     <p class="text-[11px] mt-1">Capacidad para responder a pasivos a corto plazo sin recurrir a ventas aceleradas de inventario.</p>`;
+                } else if (acidRatio >= 0.8) {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-yellow";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO AMARILLO: Liquidez Ajustada (${acidRatio.toFixed(2)})</span>
+                                     <p class="text-[11px] mt-1">Se recomienda acelerar el cobro de cartera (DSO actual: ${dso.toFixed(1)} días) para elevar la caja rápida.</p>`;
+                } else {
+                    box.className = "md:col-span-6 p-4 rounded-xl border flex flex-col justify-between traffic-red";
+                    box.innerHTML = `<span class="font-extrabold text-xs">SEMÁFORO ROJO: Riesgo de Malla de Liquidez (${acidRatio.toFixed(2)})</span>
+                                     <p class="text-[11px] mt-1">Activo corriente insuficiente para cubrir pasivos inmediatos. Reestructuración urgente con mesa CFO.</p>`;
+                }
+            }
+        }
+
+        function calculateTaxSV() {
+            const revM = parseFloat(document.getElementById('tax-rev-m')?.value) || 0;
+            const purchM = parseFloat(document.getElementById('tax-purch-m')?.value) || 0;
+            const rentaA = parseFloat(document.getElementById('tax-renta-a')?.value) || 0;
+
+            const ivaDebit = revM * 0.13;
+            const ivaCredit = purchM * 0.13;
+            const ivaPayable = Math.max(0, ivaDebit - ivaCredit);
+            const pagoCuenta = revM * 0.0175;
+            const isrRate = rentaA <= 150000 ? 0.25 : 0.30;
+            const isrAnnual = rentaA * isrRate;
+
+            if (document.getElementById('out-tax-iva')) document.getElementById('out-tax-iva').innerText = '$' + Math.round(ivaPayable).toLocaleString() + ' USD';
+            if (document.getElementById('out-tax-f14')) document.getElementById('out-tax-f14').innerText = '$' + Math.round(pagoCuenta).toLocaleString() + ' USD';
+            if (document.getElementById('out-tax-isr')) document.getElementById('out-tax-isr').innerText = '$' + Math.round(isrAnnual).toLocaleString() + ' USD (' + (isrRate * 100) + '%)';
+        }
+
+        window.onload = function() {
+            renderOrganigram(organigramData);
+            renderReviews(reviewsData, 'landing-reviews-grid');
+            renderTemplatePreviewTable('f07-ventas');
+            typeWriterEffect();
+            initPrismCanvas();
+            runM2InteractiveDashboard();
+            calculateWACC();
+            calculateVAN();
+            calculateBreakEven();
+            calculateLiquidity();
+            calculateTaxSV();
         };
 
         let currentActiveTemplate = 'f07-ventas';
